@@ -1,4 +1,5 @@
 import json
+import numpy as np
 from imdb.imdb import IMDb
 from rottentomatoes.rottentomatoes import RottenTomatoes
 
@@ -10,7 +11,8 @@ def create_movie_entry(movie_id, title, release_year, genre, runtime):
         "genre": genre,
         "runtime": runtime,
         "rottenTomatoesRatings": [],
-        "imdbRating": 0
+        "rottenTomatoesScore": -1,
+        "imdbScore": -1
     }
         
 def add_rating(movie_entry, source, score, num_votes, timestamp):
@@ -49,13 +51,20 @@ def main():
             int(imdb_movie['runtimeMinutes'].iloc[0])
         )
         
-        # add IMDb rating
-        movie['imdbRating'] = {
-            "averageRating": int(imdb_movie["averageRating"].iloc[0]),
+        # add IMDb score
+        movie['imdbScore'] = {
+            "averageScore": int(imdb_movie["averageRating"].iloc[0]),
             "numberVotes": int(imdb_movie["numVotes"].iloc[0]),
         }
         
-        # add Rotten Tomates ratings (multiple)
+        # add Rotten Tomatoes scores
+        a, t = tomatoes.get_scores(title, year)
+        movie['rottenTomatoesScore'] = {
+            "audienceScore": a,
+            "tomatoMeter": t,  
+        }
+        
+        # add Rotten Tomatoes ratings (multiple)
         movie['rottenTomatoesRatings'] = [{
             "date": date,
             "score": 10 if score == "fresh" else 0

@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import os
 
 class RottenTomatoes():
@@ -8,6 +9,9 @@ class RottenTomatoes():
         
         self.reviews_df = pd.read_csv(f"{path_to_raw_folder}/rotten_tomatoes_movie_reviews.csv")
         self.movies_df = pd.read_csv(f"{path_to_raw_folder}/rotten_tomatoes_movies.csv")
+        
+        self.movies_df['audienceScore'] = self.movies_df['audienceScore'].fillna(-1)
+        self.movies_df['tomatoMeter'] = self.movies_df['tomatoMeter'].fillna(-1)
     
     def get_movie_titles(self):
         """returns movie titles (contains duplicates)"""
@@ -20,6 +24,14 @@ class RottenTomatoes():
         else:
             result = self.movies_df[(self.movies_df['title'] == title) & (self.movies_df['releaseDateTheaters'].str.contains(year))]
         return result[["id", "title", "releaseDateTheaters", "runtimeMinutes"]]
+    
+    def get_scores(self, title, year=None):
+        """returns audienceScore and tomatoMeter of a movie"""
+        if year is None:
+            result = self.movies_df[(self.movies_df['title'] == title)]
+        else:
+            result = self.movies_df[(self.movies_df['title'] == title) & (self.movies_df['releaseDateTheaters'].str.contains(year))]
+        return result[['audienceScore', 'tomatoMeter']].values[0]
       
     def get_ratings(self, title, year=None):
         """returns ratings from title and year (optional)"""
@@ -33,8 +45,5 @@ class RottenTomatoes():
         
         movie_id = movie.values[0]
         reviews = self.reviews_df[self.reviews_df['id'] == movie_id]
-        
-        if reviews.size == 0:
-            return None
         
         return reviews[['creationDate', 'reviewState']]
