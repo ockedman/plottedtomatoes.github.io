@@ -10,23 +10,24 @@ class IMDb:
         titles_df = pd.read_csv(f'{path_to_raw_folder}/title.basics.tsv', sep='\t')
         
         self.data_df = pd.merge(titles_df, ratings_df, on='tconst')
-        
-    def get_movie_by_title(self, title: str):
-        """return movie dataframe from title"""
-        result = self.data_df[(self.data_df['primaryTitle'].str.lower() == title.lower()) & (self.data_df['titleType'] == 'movie')]
-        if not result.empty:
-            most_reviewed = result.sort_values(by='numVotes', ascending=False).iloc[0]
-            return most_reviewed[['tconst', 'primaryTitle', 'startYear', 'averageRating', 'numVotes', 'genres', 'runtimeMinutes']]
-        else:
-            return None
+    
+    def get_movie_from_id(self, id: str):
+        """returns movie from id"""
+        result = self.data_df[(self.data_df['tconst'] == id) & (self.data_df['titleType'] == 'movie')]
+        return result[['tconst', 'primaryTitle', 'startYear', 'averageRating', 'numVotes', 'genres', 'runtimeMinutes']]
         
     def get_movie_titles(self):
-        """return movie titles"""
+        """returns movie titles (contains duplicates)"""
         result = self.data_df[self.data_df['titleType'] == 'movie']
         return result['primaryTitle'].tolist()
+    
+    def get_movies(self):
+        """returns movies"""
+        result = self.data_df[self.data_df['titleType'] == 'movie']
+        return result[['tconst', 'primaryTitle', 'startYear']]
         
     def get_top_rated_movies(self, number: int, min_votes=0, year=None):
-        """return top rates movies from year (optional), with a minimum number of votes (optional)"""
+        """returns top rates movies from year (optional), with a minimum number of votes (optional)"""
         movies_df = self.data_df[(self.data_df['titleType'] == 'movie') & (self.data_df['numVotes'] >= min_votes)] # filter
         
         if year is not None:
