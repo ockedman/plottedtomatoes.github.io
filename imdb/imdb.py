@@ -11,11 +11,11 @@ class IMDb:
         
         self.data_df = pd.merge(titles_df, ratings_df, on='tconst')
         
-        self.data_df['startYear'].replace("\\N", -1, inplace=True)
-        self.data_df['averageRating'].replace("\\N", -1, inplace=True)
-        self.data_df['numVotes'].replace("\\N", -1, inplace=True)
-        self.data_df['genres'].replace("\\N", "", inplace=True)
-        self.data_df['runtimeMinutes'].replace("\\N", -1, inplace=True)
+        self.data_df['startYear'] = self.data_df['startYear'].replace("\\N", -1)
+        self.data_df['averageRating'] = self.data_df['averageRating'].replace("\\N", -1)
+        self.data_df['numVotes'] = self.data_df['numVotes'].replace("\\N", -1)
+        self.data_df['genres'] = self.data_df['genres'].replace("\\N", "")
+        self.data_df['runtimeMinutes'] = self.data_df['runtimeMinutes'].replace("\\N", -1)
     
     def get_movie_from_id(self, id: str):
         """returns movie from id"""
