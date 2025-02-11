@@ -2,13 +2,13 @@ import json
 from imdb.imdb import IMDb
 from rottentomatoes.rottentomatoes import RottenTomatoes
 
-def create_movie_entry(movie_id, title, release_year, genre, length):
+def create_movie_entry(movie_id, title, release_year, genre, runtime):
     return {
         "movieId": movie_id,
         "title": title,
         "releaseYear": release_year,
         "genre": genre,
-        "length": length,
+        "runtime": runtime,
         "rottenTomatoesRatings": [],
         "imdbRating": 0
     }
@@ -26,32 +26,34 @@ def main():
     imdb = IMDb("raw")
     tomatoes = RottenTomatoes("raw")
     
-    movie_titles = imdb.get_movie_titles()
-    print(f"found {len(movie_titles)} movies on IMDb")
+    movies = imdb.get_movies()
+    print(f"found {movies.shape[0]} movies on IMDb")
     
     movies_data = list()
-    for title in movie_titles:
-        print(f"processing {title}..", end=" ")
+    for i, movie in enumerate(movies.values):
+        id, title, year = movie
+        print(f"processing {i}. {title}..", end=" ")
         # create movie entry using IMDb data
-        imdb_movie = imdb.get_movie_by_title(title)
-        tomatoes_reviews = tomatoes.get_ratings_by_title(title)
+        tomatoes_reviews = tomatoes.get_ratings(title, year)
         
         if tomatoes_reviews is None: # skipping movies for which no Rotten Tomatoes ratings were found
             print("skipped.")
             continue
         
+        imdb_movie = imdb.get_movie_from_id(id)
+        
         movie = create_movie_entry(
-            imdb_movie['tconst'],
+            id,
             title,
-            imdb_movie['startYear'],
-            imdb_movie['genres'],
-            imdb_movie['runtimeMinutes']
+            year,
+            imdb_movie['genres'].values[0].split(","),
+            int(imdb_movie['runtimeMinutes'].iloc[0]) if imdb_movie['runtimeMinutes'].iloc[0] != "\\N" else -1
         )
         
         # add IMDb rating
         movie['imdbRating'] = {
-            "averageRating": int(imdb_movie["averageRating"]),
-            "numberVotes": int(imdb_movie["numVotes"]),
+            "averageRating": int(imdb_movie["averageRating"].iloc[0]),
+            "numberVotes": int(imdb_movie["numVotes"].iloc[0]),
         }
         
         # add Rotten Tomates ratings (multiple)
