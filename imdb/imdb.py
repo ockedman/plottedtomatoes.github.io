@@ -10,6 +10,12 @@ class IMDb:
         titles_df = pd.read_csv(f'{path_to_raw_folder}/title.basics.tsv', sep='\t')
         
         self.data_df = pd.merge(titles_df, ratings_df, on='tconst')
+        
+        self.data_df['startYear'].replace("\\N", -1, inplace=True)
+        self.data_df['averageRating'].replace("\\N", -1, inplace=True)
+        self.data_df['numVotes'].replace("\\N", -1, inplace=True)
+        self.data_df['genres'].replace("\\N", "", inplace=True)
+        self.data_df['runtimeMinutes'].replace("\\N", -1, inplace=True)
     
     def get_movie_from_id(self, id: str):
         """returns movie from id"""

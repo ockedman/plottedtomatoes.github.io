@@ -27,17 +27,16 @@ def main():
     tomatoes = RottenTomatoes("raw")
     
     movies = imdb.get_movies()
-    print(f"found {movies.shape[0]} movies on IMDb")
+    nr_of_movies = movies.shape[0]
     
     movies_data = list()
     for i, movie in enumerate(movies.values):
         id, title, year = movie
-        print(f"processing {i}. {title}..", end=" ")
+        print(f"processing {i}/{nr_of_movies}. {title}".ljust(200), end="\r", flush=True)
         # create movie entry using IMDb data
         tomatoes_reviews = tomatoes.get_ratings(title, year)
         
         if tomatoes_reviews is None: # skipping movies for which no Rotten Tomatoes ratings were found
-            print("skipped.")
             continue
         
         imdb_movie = imdb.get_movie_from_id(id)
@@ -47,7 +46,7 @@ def main():
             title,
             year,
             imdb_movie['genres'].values[0].split(","),
-            int(imdb_movie['runtimeMinutes'].iloc[0]) if imdb_movie['runtimeMinutes'].iloc[0] != "\\N" else -1
+            int(imdb_movie['runtimeMinutes'].iloc[0])
         )
         
         # add IMDb rating
@@ -64,7 +63,6 @@ def main():
         
         
         movies_data.append(movie)
-        print("added.")
     
     print(f"adding {len(movies_data)} movies to movies.json")
     
