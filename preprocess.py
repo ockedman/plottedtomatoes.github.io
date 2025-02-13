@@ -23,8 +23,8 @@ def add_rating(movie_entry, source, score, num_votes, timestamp):
         "timestamp": timestamp
     }
     movie_entry["ratings"].append(rating)
-    
-def main():
+
+def preprocess(lite=False):
     raw_data = pd.read_csv("raw/movies.csv")
     movies = set(list(zip(raw_data.title, raw_data.startYear)))
     nr_of_movies = len(movies)
@@ -61,19 +61,28 @@ def main():
             "tomatoMeter": int(first_entry['tomatoMeter'])
         }
         
-        # add Rotten Tomatoes ratings (multiple)
-        movie['rottenTomatoesRatings'] = [{
-            "date": date,
-            "score": 10 if score == "fresh" else 0
-        } for date, score in list(zip(movie_data.creationDate, movie_data.reviewState))]
-        
+        if not lite:
+            # add Rotten Tomatoes ratings (multiple)
+            movie['rottenTomatoesRatings'] = [{
+                "date": date,
+                "score": 10 if score == "fresh" else 0
+            } for date, score in list(zip(movie_data.creationDate, movie_data.reviewState))]
         
         json_data.append(movie)
     
-    print(f"adding {len(json_data)} movies to movies.json".ljust(200))
+    if not lite:
+        print(f"adding {len(json_data)} movies to movies.json".ljust(200))
+        with open("movies.json", "w") as file:
+            json.dump(json_data, file, indent=2)  # `indent=2` for pretty-printing
+    else:
+        print(f"adding {len(json_data)} movies to movies_lite.json".ljust(200))
+        with open("movies_lite.json", "w") as file:
+            json.dump(json_data, file, indent=2)  # `indent=2` for pretty-printing
     
-    with open("movies.json", "w") as file:
-        json.dump(json_data, file, indent=2)  # `indent=2` for pretty-printing
+        
+def main():
+    preprocess()
+    preprocess(lite=True)
 
 if __name__ == "__main__":
     main()
