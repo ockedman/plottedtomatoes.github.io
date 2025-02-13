@@ -1,13 +1,13 @@
 import json
 import numpy as np
-from imdb.imdb import IMDb
-from rottentomatoes.rottentomatoes import RottenTomatoes
+import pandas as pd
 
-def create_movie_entry(movie_id, title, release_year, genre, runtime):
+def create_movie_entry(movie_id, title, release_year, release_date, genre, runtime):
     return {
         "movieId": movie_id,
         "title": title,
         "releaseYear": release_year,
+        "releaseDate": release_date,
         "genre": genre,
         "runtime": runtime,
         "rottenTomatoesRatings": [],
@@ -25,66 +25,55 @@ def add_rating(movie_entry, source, score, num_votes, timestamp):
     movie_entry["ratings"].append(rating)
     
 def main():
-    imdb = IMDb("raw")
-    tomatoes = RottenTomatoes("raw")
-    
-    movies = imdb.get_movies()
-    nr_of_movies = movies.shape[0]
+    raw_data = pd.read_csv("raw/movies.csv")
+    movies = set(list(zip(raw_data.title, raw_data.startYear)))
+    nr_of_movies = len(movies)
     print(f"processing {nr_of_movies} movies".ljust(200))
-    percentage = nr_of_movies//100
     
-    movies_data = list()
-    for i, movie in enumerate(movies.values):
+    json_data = list()
+    for i, (title, year) in enumerate(movies):
         if i%100 == 0:
             progress = int((i / nr_of_movies) * 100)
             bar = "=" * progress
             print(f" progress: {progress}% [{bar:<{100}}]".ljust(200), end="\r")
-        id, title, year = movie
-        # create movie entry using IMDb data
-        tomatoes_reviews = tomatoes.get_ratings(title, year)
         
-        if tomatoes_reviews is None: # skipping movies for which no Rotten Tomatoes ratings were found
-            continue
-        
-        audienceScore, tomatoMeter = tomatoes.get_scores(title, year)
-        if audienceScore == -1 and tomatoMeter == -1:
-            continue
-        
-        imdb_movie = imdb.get_movie_from_id(id)
+        movie_data = raw_data[(raw_data['title'] == title) & (raw_data['startYear'] == year)]
+        first_entry = movie_data.iloc[0]
         
         movie = create_movie_entry(
-            id,
+            first_entry['tconst'],
             title,
             year,
-            imdb_movie['genres'].values[0].split(","),
-            int(imdb_movie['runtimeMinutes'].iloc[0])
+            first_entry['releaseDateTheaters'],
+            str(first_entry['genres']).split(","),
+            first_entry['runtimeMinutes']
         )
         
         # add IMDb score
         movie['imdbScore'] = {
-            "averageScore": int(imdb_movie["averageRating"].iloc[0]),
-            "numberVotes": int(imdb_movie["numVotes"].iloc[0])
+            "averageScore": int(first_entry['averageRating']),
+            "numberVotes": int(first_entry['numVotes'])
         }
         
         # add Rotten Tomatoes scores
         movie['rottenTomatoesScore'] = {
-            "audienceScore": audienceScore,
-            "tomatoMeter": tomatoMeter
+            "audienceScore": int(first_entry['audienceScore']),
+            "tomatoMeter": int(first_entry['tomatoMeter'])
         }
         
         # add Rotten Tomatoes ratings (multiple)
         movie['rottenTomatoesRatings'] = [{
             "date": date,
             "score": 10 if score == "fresh" else 0
-        } for date, score in tomatoes_reviews.values]
+        } for date, score in list(zip(movie_data.creationDate, movie_data.reviewState))]
         
         
-        movies_data.append(movie)
+        json_data.append(movie)
     
-    print(f"adding {len(movies_data)} movies to movies.json".ljust(200))
+    print(f"adding {len(json_data)} movies to movies.json".ljust(200))
     
     with open("movies.json", "w") as file:
-        json.dump(movies_data, file, indent=2)  # `indent=2` for pretty-printing
+        json.dump(json_data, file, indent=2)  # `indent=2` for pretty-printing
 
 if __name__ == "__main__":
     main()
