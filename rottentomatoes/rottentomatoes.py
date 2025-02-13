@@ -12,6 +12,7 @@ class RottenTomatoes():
         
         self.movies_df['audienceScore'] = self.movies_df['audienceScore'].fillna(-1)
         self.movies_df['tomatoMeter'] = self.movies_df['tomatoMeter'].fillna(-1)
+        self.movies_df['releaseDateTheaters'] = self.movies_df['releaseDateTheaters'].fillna(" ")
     
     def get_movie_titles(self):
         """returns movie titles (contains duplicates)"""
@@ -45,5 +46,8 @@ class RottenTomatoes():
         
         movie_id = movie.values[0]
         reviews = self.reviews_df[self.reviews_df['id'] == movie_id]
+        
+        if reviews.size == 0:
+            return None
         
         return reviews[['creationDate', 'reviewState']]
