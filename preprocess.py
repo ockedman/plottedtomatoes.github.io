@@ -2,6 +2,11 @@ import json
 import numpy as np
 import pandas as pd
 
+def create_json(data):
+    return {
+        "data": data
+    }
+
 def create_movie_entry(movie_id, title, release_year, release_date, genre, runtime):
     return {
         "movieId": movie_id,
@@ -69,15 +74,17 @@ def preprocess(lite=False):
             } for date, score in list(zip(movie_data.creationDate, movie_data.reviewState))]
         
         json_data.append(movie)
+        
+        movies_json = create_json(json_data)
     
     if not lite:
         print(f"adding {len(json_data)} movies to movies.json".ljust(200))
         with open("movies.json", "w") as file:
-            json.dump(json_data, file, indent=2)  # `indent=2` for pretty-printing
+            json.dump(movies_json, file, indent=2)  # `indent=2` for pretty-printing
     else:
         print(f"adding {len(json_data)} movies to movies_lite.json".ljust(200))
         with open("movies_lite.json", "w") as file:
-            json.dump(json_data, file, indent=2)  # `indent=2` for pretty-printing
+            json.dump(movies_json, file, indent=2)  # `indent=2` for pretty-printing
     
         
 def main():
