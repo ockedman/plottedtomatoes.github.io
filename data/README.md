@@ -27,7 +27,7 @@ example of movie entry:
         "averageScore": 8.451,          # average scores
         "numberVotes": 36515            # number of votes
       },
-      "rottenTomatoesRatings": {        # breakdown of when critics gave their ratings by year
+      "rottenTomatoesRatings": {        # what score te critics gave on average, by year
         "2014": 7,
         "2015": 6,
         "2016": 7,
@@ -39,7 +39,7 @@ example of movie entry:
         "2022": 10,
         "2023": 7
       },
-      "rottenTomatoesNumVotes": {       # number of critics who gave their rating in a year
+      "rottenTomatoesNumVotes": {       # when critics gave their ratings by year
         "2014": 258,
         "2015": 33,
         "2016": 14,
