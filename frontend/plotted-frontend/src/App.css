@@ -5,11 +5,17 @@
   text-align: center;
 }
 
-.parallel-plot {
-  height: 500px;
-  width: 900px;
+.app-container {
+  display: flex;
 }
 
-.title {
-  color: black;
+.parallel-plot1 {
+  height: 500px;
+  width: 700px;
+  border: 2px;
+  border-color: black;
+}
+.parallel-plot2 {
+  height: 500px;
+  width: 500px;
 }
