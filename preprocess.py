@@ -13,24 +13,17 @@ def create_movie_entry(movie_id, title, release_year, release_date, genre, runti
         "title": title,
         "releaseYear": release_year,
         "releaseDate": release_date,
-        "genre": genre,
+        "genres": genre,
         "runtime": runtime,
-        "rottenTomatoesRatings": [],
-        "rottenTomatoesScore": -1,
-        "imdbScore": -1
+        "rottenTomatoesScore": None,
+        "imdbScore": None,
+        "tmdbScore": None,
+        "rottenTomatoesRatings": None,
+        "rottenTomatoesNumVotes": None
     }
-        
-def add_rating(movie_entry, source, score, num_votes, timestamp):
-    rating = {
-        "source": source,
-        "score": score,
-        "numVotes": num_votes,
-        "timestamp": timestamp
-    }
-    movie_entry["ratings"].append(rating)
 
 def preprocess(lite=False):
-    raw_data = pd.read_csv("raw/movies.csv")
+    raw_data = pd.read_csv("processed/movies.csv")
     movies = set(list(zip(raw_data.title, raw_data.startYear)))
     nr_of_movies = len(movies)
     print(f"processing {nr_of_movies} movies".ljust(200))
@@ -46,7 +39,7 @@ def preprocess(lite=False):
         first_entry = movie_data.iloc[0]
         
         movie = create_movie_entry(
-            first_entry['tconst'],
+            first_entry['imdbId'],
             title,
             year,
             first_entry['releaseDateTheaters'],
@@ -56,22 +49,27 @@ def preprocess(lite=False):
         
         # add IMDb score
         movie['imdbScore'] = {
-            "averageScore": int(first_entry['averageRating']),
-            "numberVotes": int(first_entry['numVotes'])
+            "averageScore": float(first_entry['imdbScore']),
+            "numberVotes": int(first_entry['imdbNumVotes'])
         }
         
         # add Rotten Tomatoes scores
         movie['rottenTomatoesScore'] = {
-            "audienceScore": int(first_entry['audienceScore']),
-            "tomatoMeter": int(first_entry['tomatoMeter'])
+            "averageScore": float(first_entry['audienceScore']) / 10, # we want scale 0 - 10
+            "tomatoMeter": float(first_entry['tomatoMeter']) / 10,
+            "numberVotes": int(first_entry['rottenTomatoesNumVotes'])
+        }
+        
+        movie['tmdbScore'] = {
+            "averageScore": float(first_entry['tmdbAverageScore']),
+            "numberVotes": int(first_entry['tmdbNumVotes'])
         }
         
         if not lite:
             # add Rotten Tomatoes ratings (multiple)
-            movie['rottenTomatoesRatings'] = [{
-                "date": date,
-                "score": 10 if score == "fresh" else 0
-            } for date, score in list(zip(movie_data.creationDate, movie_data.reviewState))]
+            movie['rottenTomatoesRatings'] = json.loads(first_entry['rottenTomatoesReviews'])
+            movie['rottenTomatoesNumVotes'] = json.loads(first_entry['rottenTomatoesReviewsNumVotes'])
+            
         
         json_data.append(movie)
         
@@ -79,11 +77,11 @@ def preprocess(lite=False):
     
     if not lite:
         print(f"adding {len(json_data)} movies to movies.json".ljust(200))
-        with open("movies.json", "w") as file:
+        with open("data/movies.json", "w") as file:
             json.dump(movies_json, file, indent=2)  # `indent=2` for pretty-printing
     else:
         print(f"adding {len(json_data)} movies to movies_lite.json".ljust(200))
-        with open("movies_lite.json", "w") as file:
+        with open("data/movies_lite.json", "w") as file:
             json.dump(movies_json, file, indent=2)  # `indent=2` for pretty-printing
     
         
