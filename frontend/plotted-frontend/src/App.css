@@ -1,20 +1,87 @@
+/* --------------------------------------------
+   GLOBAL / ROOT
+---------------------------------------------*/
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #252422; /* dark background */
+  color: #fffcf2; /* off-white text */
+  font-family: "Arial", sans-serif;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
 
+/* --------------------------------------------
+   MAIN APP CONTAINER
+---------------------------------------------*/
 .app-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
+/* Each row remains distinct, centered horizontally */
+.app-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* --------------------------------------------
+   TABLIST
+---------------------------------------------*/
+.tablist {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  background-color: #403d39;
+  margin: 0;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.tablist li {
+  margin: 0 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background-color: #ccc5b9; /* a warm gray background for the tab */
+  border: none;
+  border-radius: 4px;
+  color: #252422; /* text color on warm gray background */
+  transition: all 0.3s ease;
+}
+
+.tablist li:hover {
+  opacity: 0.8;
+}
+
+/* React-Tabs / selected tab styles */
+.react-tabs__tab--selected {
+  background-color: #eb5e28;
+  color: #fffcf2; /* contrast text color */
+}
+
+/* --------------------------------------------
+   PARALLEL PLOTS
+---------------------------------------------*/
+.parallel-plot1,
+.parallel-plot2 {
+  border: 2px solid #eb5e28; /* A bright accent border */
+}
+
+/* Example heights/widths */
 .parallel-plot1 {
   height: 500px;
   width: 700px;
-  border: 2px;
-  border-color: black;
 }
+
 .parallel-plot2 {
   height: 500px;
   width: 500px;

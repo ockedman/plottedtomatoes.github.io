@@ -10,8 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "@nivo/heatmap": "^0.88.0",
+    "@nivo/line": "^0.88.0",
+    "@nivo/scatterplot": "^0.88.0",
+    "@nivo/treemap": "^0.88.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-tabs": "^6.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",

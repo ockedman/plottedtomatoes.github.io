@@ -1,9 +1,6 @@
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "./App.css";
-import PageOne from "./components/page1";
-import PageTwo from "./components/page2";
+import ParallelPlot from "./parallel";
 
-function App() {
+const PageTwo = () => {
   let data = [
     {
       movieId: "tt7980152",
@@ -64,21 +61,9 @@ function App() {
 
   return (
     <div>
-      <Tabs>
-        <TabList className="tablist">
-          <Tab>The Expert</Tab>
-          <Tab>The Casual</Tab>
-        </TabList>
-
-        <TabPanel>
-          <PageOne />
-        </TabPanel>
-        <TabPanel>
-          <PageTwo />
-        </TabPanel>
-      </Tabs>
+      <h1> Page Two </h1>
     </div>
   );
-}
+};
 
-export default App;
+export default PageTwo;
