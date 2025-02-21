@@ -27,7 +27,7 @@ example of movie entry:
         "averageScore": 8.451,          # average scores
         "numberVotes": 36515            # number of votes
       },
-      "rottenTomatoesRatings": {        # what score te critics gave on average, by year
+      "rottenTomatoesRatings": {        # what score the critics gave on average, by year
         "2014": 7,
         "2015": 6,
         "2016": 7,
