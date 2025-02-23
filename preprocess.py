@@ -7,13 +7,15 @@ def create_json(data):
         "data": data
     }
 
-def create_movie_entry(movie_id, title, studios, release_year, release_date, genres, runtime):
+def create_movie_entry(movie_id, title, studios, release_year, release_date, budget, revenue, genres, runtime):
     return {
         "movieId": movie_id,
         "title": title,
         "studios": studios,
         "releaseYear": release_year,
         "releaseDate": release_date,
+        "budget": budget,
+        "revenue": revenue,
         "genres": genres,
         "runtime": runtime,
         "rottenTomatoesScore": None,
@@ -45,6 +47,8 @@ def preprocess(lite=False):
             str(movie_data['studios']).split(","),
             year,
             movie_data['releaseDateTheaters'],
+            int(movie_data["budget"]),
+            int(movie_data["revenue"]),
             str(movie_data['genres']).split(","),
             movie_data['runtimeMinutes']
         )

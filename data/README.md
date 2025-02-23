@@ -13,6 +13,8 @@ example of movie entry:
       ],
       "releaseYear": 2014,              # Year of Movie Release
       "releaseDate": "2014-11-07",      # Exact Date of Movie Release
+      "budget": 165000000,              # Movie budget in USD
+      "revenue": 746606706,             # Movie Revenue in USD
       "genres": [                       # Genres
         "Adventure",
         "Drama",
