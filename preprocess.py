@@ -7,17 +7,19 @@ def create_json(data):
         "data": data
     }
 
-def create_movie_entry(movie_id, title, release_year, release_date, genre, runtime):
+def create_movie_entry(movie_id, title, studios, release_year, release_date, genres, runtime):
     return {
         "movieId": movie_id,
         "title": title,
+        "studios": studios,
         "releaseYear": release_year,
         "releaseDate": release_date,
-        "genres": genre,
+        "genres": genres,
         "runtime": runtime,
         "rottenTomatoesScore": None,
         "imdbScore": None,
         "tmdbScore": None,
+        "letterboxdScore": None,
         "rottenTomatoesRatings": None,
         "rottenTomatoesNumVotes": None
     }
@@ -35,40 +37,47 @@ def preprocess(lite=False):
             bar = "=" * progress
             print(f" progress: {progress}% [{bar:<{100}}]".ljust(200), end="\r")
         
-        movie_data = raw_data[(raw_data['title'] == title) & (raw_data['startYear'] == year)]
-        first_entry = movie_data.iloc[0]
+        movie_data = raw_data[(raw_data['title'] == title) & (raw_data['startYear'] == year)].iloc[0]
         
         movie = create_movie_entry(
-            first_entry['imdbId'],
+            movie_data['imdbId'],
             title,
+            str(movie_data['studios']).split(","),
             year,
-            first_entry['releaseDateTheaters'],
-            str(first_entry['genres']).split(","),
-            first_entry['runtimeMinutes']
+            movie_data['releaseDateTheaters'],
+            str(movie_data['genres']).split(","),
+            movie_data['runtimeMinutes']
         )
         
         # add IMDb score
         movie['imdbScore'] = {
-            "averageScore": float(first_entry['imdbScore']),
-            "numberVotes": int(first_entry['imdbNumVotes'])
+            "averageScore": float(movie_data['imdbScore']),
+            "numberVotes": int(movie_data['imdbNumVotes'])
         }
         
         # add Rotten Tomatoes scores
         movie['rottenTomatoesScore'] = {
-            "averageScore": float(first_entry['audienceScore']) / 10, # we want scale 0 - 10
-            "tomatoMeter": float(first_entry['tomatoMeter']) / 10,
-            "numberVotes": int(first_entry['rottenTomatoesNumVotes'])
+            "averageScore": float(movie_data['audienceScore']) / 10, # adjust from 0 - 100 to 0 - 10
+            "tomatoMeter": float(movie_data['tomatoMeter']) / 10,
+            "numberVotes": int(movie_data['rottenTomatoesNumVotes'])
         }
         
+        # add TMDb Score
         movie['tmdbScore'] = {
-            "averageScore": float(first_entry['tmdbAverageScore']),
-            "numberVotes": int(first_entry['tmdbNumVotes'])
+            "averageScore": float(movie_data['tmdbAverageScore']),
+            "numberVotes": int(movie_data['tmdbNumVotes'])
+        }
+        
+        # add Letterboxd Score
+        movie['letterboxdScore'] = {
+            "averageScore": float(movie_data['letterboxdAverageScore']) * 2, # adjust from 0 - 5 to 0 - 10
+            "numberVotes": int(movie_data['letterboxdNumVotes'])
         }
         
         if not lite:
             # add Rotten Tomatoes ratings (multiple)
-            movie['rottenTomatoesRatings'] = json.loads(first_entry['rottenTomatoesReviews'])
-            movie['rottenTomatoesNumVotes'] = json.loads(first_entry['rottenTomatoesReviewsNumVotes'])
+            movie['rottenTomatoesRatings'] = json.loads(movie_data['rottenTomatoesReviews'])
+            movie['rottenTomatoesNumVotes'] = json.loads(movie_data['rottenTomatoesReviewsNumVotes'])
             
         
         json_data.append(movie)

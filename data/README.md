@@ -6,6 +6,11 @@ example of movie entry:
 {
       "movieId": "tt0816692",           # IMDb ID
       "title": "Interstellar",          # Movie Title
+      "studios": [                      # Studios
+        "Legendary Pictures",
+        "Syncopy",
+        "Lynda Obst Productions"
+      ],
       "releaseYear": 2014,              # Year of Movie Release
       "releaseDate": "2014-11-07",      # Exact Date of Movie Release
       "genres": [                       # Genres
@@ -26,6 +31,10 @@ example of movie entry:
       "tmdbScore": {                    # TMDb data
         "averageScore": 8.451,          # average scores
         "numberVotes": 36515            # number of votes
+      },
+      "letterboxdScore": {              # Letterboxd data
+        "averageScore": 8.82,           # average score
+        "numberVotes": 3510857          # number of votes
       },
       "rottenTomatoesRatings": {        # what score the critics gave on average, by year
         "2014": 7,
