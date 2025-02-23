@@ -8,13 +8,13 @@ public class MovieDTO {
     private String title;
     private int releaseYear;
     private String releaseDate;
-    private List<String> genre;
-    private List<String> studio;
+    private List<String> genres;
+    private List<String> studios;
     private double runtime;
-    private Map<String, Integer> rottenTomatoesScore;
+    private Map<String, Object> rottenTomatoesScore;
     private Map<String, Object> imdbScore;
     private Map<String, Object> letterboxdScore;
-    private Map<String, Object> tmdbscore;
+    private Map<String, Object> tmdbScore;
     private String country;
     private String rating;
     private Long box_office;
@@ -28,15 +28,15 @@ public class MovieDTO {
         return releaseYear;
     }
 
-    public List<String> getGenre() {
-        return genre;
+    public List<String> getGenres() {
+        return genres;
     }
 
     public double getRuntime() {
         return runtime;
     }
 
-    public Map<String, Integer> getRottenTomatoesScore() {
+    public Map<String, Object> getRottenTomatoesScore() {
         return rottenTomatoesScore;
     }
 
@@ -47,13 +47,17 @@ public class MovieDTO {
     public Map<String, Object> getLetterboxdScore() {
         return letterboxdScore;
     }
+    
+    public Map<String,Object> getTmdbScore() {
+        return tmdbScore;
+    }
 
     public String getCountry() {
         return country;
     }
 
-    public List<String> getStudio() {
-        return studio;
+    public List<String> getStudios() {
+        return studios;
     }
 
     public String getRating() {
@@ -94,16 +98,16 @@ public class MovieDTO {
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
-    public void setGenre(List<String> genre) {
-        this.genre = genre;
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
     }
-    public void setStudio(List<String> studio) {
-        this.studio = studio;
+    public void setStudios(List<String> studios) {
+        this.studios = studios;
     }
     public void setRuntime(double runtime) {
         this.runtime = runtime;
     }
-    public void setRottenTomatoesScore(Map<String,Integer> rottenTomatoesScore) {
+    public void setRottenTomatoesScore(Map<String,Object> rottenTomatoesScore) {
         this.rottenTomatoesScore = rottenTomatoesScore;
     }
     public void setImdbScore(Map<String,Object> imdbScore) {
@@ -113,12 +117,8 @@ public class MovieDTO {
         this.letterboxdScore = letterboxdScore;
     }
 
-    public Map<String,Object> getTmdbScore() {
-        return this.tmdbscore;
-    }
-
-    public void setTmdbscore(Map<String,Object> tmdbscore) {
-        this.tmdbscore = tmdbscore;
+    public void setTmdbScore(Map<String,Object> tmdbscore) {
+        this.tmdbScore = tmdbscore;
     }
     public void setCountry(String country) {
         this.country = country;

@@ -4,7 +4,7 @@ import org.springframework.data.jpa.domain.Specification;
 // import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.stream.Collectors;
+// import java.util.stream.Collectors;
 import java.util.HashSet;
 import java.util.Set;
 // import java.util.function.Function;
@@ -143,7 +143,7 @@ public class MovieService {
         Set<Movie> bestMovies = new HashSet<>();
         bestMovies.addAll(this.movieRepository.findAllByOrderByRTratingDesc().subList(0, n));
         bestMovies.addAll(this.movieRepository.findAllByOrderByLBratingDesc().subList(0, n));
-        bestMovies.addAll(this.movieRepository.findAllByOrderByMCratingDesc().subList(0, n));
+        // bestMovies.addAll(this.movieRepository.findAllByOrderByMCratingDesc().subList(0, n));
         bestMovies.addAll(this.movieRepository.findAllByOrderByIMDBratingDesc().subList(0, n));
         bestMovies.addAll(this.movieRepository.findAllByOrderByTMDBratingDesc().subList(0, n));
 
