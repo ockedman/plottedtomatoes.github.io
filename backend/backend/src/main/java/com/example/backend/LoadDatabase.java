@@ -42,24 +42,24 @@ public class LoadDatabase implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        /*
+        
         JsonNode json;
 
         try(InputStream inputStream = TypeReference.class.getResourceAsStream("movies.json")) {
-            json = objectMapper.readTree(inputStream, JsonNode.class);
+            json = objectMapper.readValue(inputStream, JsonNode.class);
         } catch(IOException e) {
             throw new RuntimeException("failed to read JSON data", e);
         }
 
-        List<Movie> movies = new ArrayList<>():
-        for (JsonNode node : json.get("movies")) {
+        List<Movie> movies = new ArrayList<>();
+        for (JsonNode node : json.get("data")) {
             MovieDTO movieDTO = objectMapper.treeToValue(node, MovieDTO.class);
             Movie movie = new Movie(movieDTO);
             movies.add(movie);
         }
         
         movieService.saveAll(movies);
-        */
+        
 
         /*
         JsonNode movies = getMovies(json);
@@ -67,9 +67,10 @@ public class LoadDatabase implements CommandLineRunner {
             Movie movie = createMovieFromNode(j_movie);
             this.movieService.saveMovie(movie);
         }
-        */
+        
 
 
+        /*
         List<Movie> movies = Arrays.asList(
             new Movie(
                 "Inception",
@@ -134,6 +135,7 @@ public class LoadDatabase implements CommandLineRunner {
         );
 
         movieService.saveAll(movies);
+        */
     }
 
     private Movie createMovieFromNode(JsonNode j_movie) {
@@ -142,13 +144,14 @@ public class LoadDatabase implements CommandLineRunner {
         String title = node.get("title").asText();
 
         ArrayList<String> genre = new ArrayList<>(Arrays.asList(node.get("genre").asText().split(",")));
+        ArrayList<String> studios = new ArrayList<>(Arrays.asList(node.get("studios").asText().split(",")));
         
         String country = node.get("country").asText();
-        String studio = node.get("studio").asText();
         Integer year = node.get("releaseYear").asInt();
         int runtime = node.get("runtime").asInt();
         String rating = node.get("rating").asText();
         Long box_office = node.get("box_office").asLong();
+        Long budget = node.get("budget").asLong();
 
         Double RTrating = node.get("RTrating").asDouble();
         int RTnb = node.get("RTnb").asInt();
@@ -164,7 +167,7 @@ public class LoadDatabase implements CommandLineRunner {
         Double TMDBrating = node.get("TMDBrating").asDouble();
         int TMDBnb = node.get("TMDBnb").asInt();
 
-        return new Movie(title, genre, country, studio, year, runtime, rating, box_office,
+        return new Movie(title, genre, country, studios, year, runtime, rating, box_office, budget,
             RTrating, RTnb, LBrating, LBnb, MCrating, MCnb, IMDBrating, IMDBnb, TMDBrating, TMDBnb);
     }
 

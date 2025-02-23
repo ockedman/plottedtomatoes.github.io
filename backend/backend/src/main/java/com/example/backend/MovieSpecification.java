@@ -19,7 +19,7 @@ public class MovieSpecification {
                 predicates.add(criteriaBuilder.equal(root.get("country"), country));
             }
             if (studio != null) {
-                predicates.add(criteriaBuilder.equal(root.get("studio"), studio));
+                predicates.add(criteriaBuilder.isMember(studio, root.get("studio")));
             }
             if (year != null) {
                 predicates.add(criteriaBuilder.equal(root.get("releaseYear"), Integer.parseInt(year)));

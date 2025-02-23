@@ -19,13 +19,14 @@ public class Movie {
 
     @ElementCollection
     private List<String> genre;
+    private List<String> studios;
 
     private String country;
-    private String studio;
     private Integer releaseYear;
     private int runtime;
     private String rating;
     private Long box_office;
+    private Long budget;
 
     private Double RTrating;
     private int RTnb;
@@ -42,18 +43,19 @@ public class Movie {
 
     };
 
-    public Movie(String title, List<String> genre, String country, String studio, Integer year, int runtime, String rating,
-        Long box_office, Double RTrating, int RTnb, Double LBrating, int LBnb, Double MCrating, int MCnb, Double IMDBrating, int IMDBnb,
+    public Movie(String title, List<String> genre, String country, List<String> studios, Integer year, int runtime, String rating,
+        Long box_office, Long budget, Double RTrating, int RTnb, Double LBrating, int LBnb, Double MCrating, int MCnb, Double IMDBrating, int IMDBnb,
         Double TMDBrating, int TMDBnb) {
 
         this.title = title;
         this.genre = genre;
         this.country = country;
-        this.studio = studio;
+        this.studios = studios;
         this.releaseYear = year;
         this.runtime = runtime;
         this.rating = rating;
         this.box_office = box_office;
+        this.budget = budget;
 
         this.RTrating = RTrating;
         this.RTnb = RTnb;
@@ -73,13 +75,21 @@ public class Movie {
         this.releaseYear = dto.getReleaseYear();
         this.runtime = (int) dto.getRuntime();
         this.country = dto.getCountry();
-        this.studio = dto.getStudio();
+        this.studios = dto.getStudio();
         this.rating = dto.getRating();
         this.box_office = dto.getBoxOffice();
+        this.budget = dto.getBudget();
     
-        this.RTrating = dto.getRottenTomatoesScore() != null ? 
-                        dto.getRottenTomatoesScore().getOrDefault("audienceScore", 0).doubleValue() : 0.0;
-        this.RTnb = 0; // Pas de données pour le nombre de votes sur RT
+        
+        if (dto.getRottenTomatoesScore() != null) {
+            this.RTrating = dto.getRottenTomatoesScore().get("averageScore") != null ?
+                    ((Number) dto.getRottenTomatoesScore().get("averageScore")).doubleValue() : 0.0;
+            this.RTnb = dto.getRottenTomatoesScore().get("numberVotes") != null ?
+                    ((Number) dto.getRottenTomatoesScore().get("numberVotes")).intValue() : 0;
+        } else {
+            this.RTrating = 0.0;
+            this.RTnb = 0;
+        }
     
         if (dto.getImdbScore() != null) {
             this.IMDBrating = dto.getImdbScore().get("averageScore") != null ?
@@ -90,13 +100,29 @@ public class Movie {
             this.IMDBrating = 0.0;
             this.IMDBnb = 0;
         }
+
+        if (dto.getLetterboxdScore() != null) {
+            this.LBrating = dto.getLetterboxdScore().get("averageScore") != null ?
+                    ((Number) dto.getImdbScore().get("averageScore")).doubleValue() : 0.0;
+            this.LBnb = dto.getLetterboxdScore().get("numberVotes") != null ?
+                    ((Number) dto.getImdbScore().get("numberVotes")).intValue() : 0;
+        } else {
+            this.LBrating = 0.0;
+            this.LBnb = 0;
+        }
+
+        if (dto.getTmdbScore() != null) {
+            this.TMDBrating = dto.getTmdbScore().get("averageScore") != null ?
+                    ((Number) dto.getTmdbScore().get("averageScore")).doubleValue() : 0.0;
+            this.TMDBnb = dto.getTmdbScore().get("numberVotes") != null ?
+                    ((Number) dto.getTmdbScore().get("numberVotes")).intValue() : 0;
+        } else {
+            this.TMDBrating = 0.0;
+            this.TMDBnb = 0;
+        }
     
-        this.LBrating = null;
-        this.LBnb = 0;
         this.MCrating = null;
         this.MCnb = 0;
-        this.TMDBrating = null;
-        this.TMDBnb = 0;
     }
     
 
@@ -117,8 +143,8 @@ public class Movie {
     public void setCountry(String country) {
         this.country = country;
     }
-    public void setStudio(String studio) {
-        this.studio = studio;
+    public void setStudio(ArrayList<String> studios) {
+        this.studios = studios;
     }
     public void setYear(Integer releaseYear) {
         this.releaseYear = releaseYear;
@@ -242,13 +268,21 @@ public class Movie {
     }
 
 
-    public String getStudio() {
-        return this.studio;
+    public List<String> getStudio() {
+        return this.studios;
     }
 
 
     public Integer getYear() {
         return this.releaseYear;
+    }
+
+    public Long getBudget() {
+        return this.budget;
+    }
+
+    public void setBudget(Long bg) {
+        this.budget = bg;
     }
 
 }
