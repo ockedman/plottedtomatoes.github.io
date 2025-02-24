@@ -1,6 +1,6 @@
 import { ResponsiveHeatMap } from "@nivo/heatmap";
 
-const HeatMap = () => {
+const HeatMap = ({ onCellClick }) => {
   const sampleHeatMapData = [
     {
       id: "Action",

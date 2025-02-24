@@ -1,6 +1,6 @@
 import { ResponsiveLine } from "@nivo/line";
 
-const LineGraph = () => {
+const LineGraph = ({ lineData }) => {
   const sampleLineData = [
     {
       id: "series A",
