@@ -27,31 +27,75 @@ const PageOne = () => {
   };
 
   return (
-    <div className="app-container">
-      <div className="app-row">
-        <div>
-          <h3 className="title">Big Line graph</h3>
-          <div className="parallel-plot1">
+    // <div>
+    //   <div className="app-row">
+    //     <div>
+    //       <h3 className="title">Big Line graph</h3>
+    //       <div className="parallel-plot1">
+    //         <LineGraph data={lineData} />
+    //       </div>
+    //     </div>
+    //     <div>
+    //       <h3 className="title">Heat matrix-to be</h3>
+    //       <div className="parallel-plot2">
+    //         <HeatMap onCellClick={handleCellClick} />
+    //       </div>
+    //     </div>
+    //   </div>
+    //   <div className="app-row">
+    //     <div>
+    //       <h3 className="title">scatter-to be</h3>
+    //       <div className="parallel-plot2">
+    //         <Scatter />
+    //       </div>
+    //     </div>
+    //     <div>
+    //       <h3 className="title">treemap-to be</h3>
+    //       <div className="parallel-plot1">
+    //         <Treemap />
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
+    <div className="content-container">
+      <div className="left-column">
+        <div className="line-chart-container">
+          <div className="criteria-selection">
+            <ul className="left-list">
+              <li>Genre</li>
+              <li>Year</li>
+              <li>Studio</li>
+              <li>Director</li>
+              <li>Length</li>
+              <li>Country</li>
+              <li>Rating</li>
+            </ul>
+          </div>
+          <div className="line-chart">
             <LineGraph data={lineData} />
           </div>
         </div>
-        <div>
-          <h3 className="title">Heat matrix-to be</h3>
-          <div className="parallel-plot2">
-            <HeatMap onCellClick={handleCellClick} />
-          </div>
+        <div className="scatter-plot">
+          <Scatter />
         </div>
       </div>
-      <div className="app-row">
-        <div>
-          <h3 className="title">scatter-to be</h3>
-          <div className="parallel-plot2">
-            <Scatter />
-          </div>
+      <div className="right-column">
+        <div className="options">
+          <ul className="right-list">
+            <li>Genre</li>
+            <li>Year</li>
+            <li>Studio</li>
+            <li>Director</li>
+            <li>Length</li>
+            <li>Country</li>
+            <li>Rating</li>
+          </ul>
         </div>
-        <div>
-          <h3 className="title">treemap-to be</h3>
-          <div className="parallel-plot1">
+        <div className="scrollable-content">
+          <div className="heatmap">
+            <HeatMap onCellClick={handleCellClick} />
+          </div>
+          <div className="treemap">
             <Treemap />
           </div>
         </div>

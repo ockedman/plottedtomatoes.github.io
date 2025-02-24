@@ -2,6 +2,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "./App.css";
 import PageOne from "./components/page1";
 import PageTwo from "./components/page2";
+import logoImage from "./assets/p-image.png";
 
 function App() {
   let data = [
@@ -63,21 +64,29 @@ function App() {
   ];
 
   return (
-    <div>
-      <Tabs>
-        <TabList className="tablist">
-          <Tab>The Expert</Tab>
-          <Tab>The Casual</Tab>
-        </TabList>
+    <Tabs>
+      <div className="app-container">
+        <aside className="sidebar">
+          <div className="top-left-icon">
+            <img src={logoImage} alt="Icon" className="icon-image" />
+          </div>
+          <TabList className="tablist">
+            <Tab>Movies</Tab>
+            <Tab>Platforms</Tab>
+          </TabList>
+        </aside>
 
-        <TabPanel>
-          <PageOne />
-        </TabPanel>
-        <TabPanel>
-          <PageTwo />
-        </TabPanel>
-      </Tabs>
-    </div>
+        {/* Main content here */}
+        <div className="main-content">
+          <TabPanel>
+            <PageTwo />
+          </TabPanel>
+          <TabPanel>
+            <PageOne />
+          </TabPanel>
+        </div>
+      </div>
+    </Tabs>
   );
 }
 
