@@ -6,3 +6,6 @@ raw/
 
 # Python stuff
 __pycache__/
+
+# API key
+token.json

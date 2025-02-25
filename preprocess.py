@@ -7,30 +7,27 @@ def create_json(data):
         "data": data
     }
 
-def create_movie_entry(movie_id, title, release_year, release_date, genre, runtime):
+def create_movie_entry(movie_id, title, studios, release_year, release_date, budget, revenue, genres, runtime):
     return {
         "movieId": movie_id,
         "title": title,
+        "studios": studios,
         "releaseYear": release_year,
         "releaseDate": release_date,
-        "genre": genre,
+        "budget": budget,
+        "revenue": revenue,
+        "genres": genres,
         "runtime": runtime,
-        "rottenTomatoesRatings": [],
-        "rottenTomatoesScore": -1,
-        "imdbScore": -1
+        "rottenTomatoesScore": None,
+        "imdbScore": None,
+        "tmdbScore": None,
+        "letterboxdScore": None,
+        "rottenTomatoesRatings": None,
+        "rottenTomatoesNumVotes": None
     }
-        
-def add_rating(movie_entry, source, score, num_votes, timestamp):
-    rating = {
-        "source": source,
-        "score": score,
-        "numVotes": num_votes,
-        "timestamp": timestamp
-    }
-    movie_entry["ratings"].append(rating)
 
 def preprocess(lite=False):
-    raw_data = pd.read_csv("raw/movies.csv")
+    raw_data = pd.read_csv("processed/movies.csv")
     movies = set(list(zip(raw_data.title, raw_data.startYear)))
     nr_of_movies = len(movies)
     print(f"processing {nr_of_movies} movies".ljust(200))
@@ -42,36 +39,50 @@ def preprocess(lite=False):
             bar = "=" * progress
             print(f" progress: {progress}% [{bar:<{100}}]".ljust(200), end="\r")
         
-        movie_data = raw_data[(raw_data['title'] == title) & (raw_data['startYear'] == year)]
-        first_entry = movie_data.iloc[0]
+        movie_data = raw_data[(raw_data['title'] == title) & (raw_data['startYear'] == year)].iloc[0]
         
         movie = create_movie_entry(
-            first_entry['tconst'],
+            movie_data['imdbId'],
             title,
+            str(movie_data['studios']).split(","),
             year,
-            first_entry['releaseDateTheaters'],
-            str(first_entry['genres']).split(","),
-            first_entry['runtimeMinutes']
+            movie_data['releaseDateTheaters'],
+            int(movie_data["budget"]),
+            int(movie_data["revenue"]),
+            str(movie_data['genres']).split(","),
+            movie_data['runtimeMinutes']
         )
         
         # add IMDb score
         movie['imdbScore'] = {
-            "averageScore": int(first_entry['averageRating']),
-            "numberVotes": int(first_entry['numVotes'])
+            "averageScore": float(movie_data['imdbScore']),
+            "numberVotes": int(movie_data['imdbNumVotes'])
         }
         
         # add Rotten Tomatoes scores
         movie['rottenTomatoesScore'] = {
-            "audienceScore": int(first_entry['audienceScore']),
-            "tomatoMeter": int(first_entry['tomatoMeter'])
+            "averageScore": float(movie_data['audienceScore']) / 10, # adjust from 0 - 100 to 0 - 10
+            "tomatoMeter": float(movie_data['tomatoMeter']) / 10,
+            "numberVotes": int(movie_data['rottenTomatoesNumVotes'])
+        }
+        
+        # add TMDb Score
+        movie['tmdbScore'] = {
+            "averageScore": float(movie_data['tmdbAverageScore']),
+            "numberVotes": int(movie_data['tmdbNumVotes'])
+        }
+        
+        # add Letterboxd Score
+        movie['letterboxdScore'] = {
+            "averageScore": float(movie_data['letterboxdAverageScore']) * 2, # adjust from 0 - 5 to 0 - 10
+            "numberVotes": int(movie_data['letterboxdNumVotes'])
         }
         
         if not lite:
             # add Rotten Tomatoes ratings (multiple)
-            movie['rottenTomatoesRatings'] = [{
-                "date": date,
-                "score": 10 if score == "fresh" else 0
-            } for date, score in list(zip(movie_data.creationDate, movie_data.reviewState))]
+            movie['rottenTomatoesRatings'] = json.loads(movie_data['rottenTomatoesReviews'])
+            movie['rottenTomatoesNumVotes'] = json.loads(movie_data['rottenTomatoesReviewsNumVotes'])
+            
         
         json_data.append(movie)
         
@@ -79,11 +90,11 @@ def preprocess(lite=False):
     
     if not lite:
         print(f"adding {len(json_data)} movies to movies.json".ljust(200))
-        with open("movies.json", "w") as file:
+        with open("data/movies.json", "w") as file:
             json.dump(movies_json, file, indent=2)  # `indent=2` for pretty-printing
     else:
         print(f"adding {len(json_data)} movies to movies_lite.json".ljust(200))
-        with open("movies_lite.json", "w") as file:
+        with open("data/movies_lite.json", "w") as file:
             json.dump(movies_json, file, indent=2)  # `indent=2` for pretty-printing
     
         
