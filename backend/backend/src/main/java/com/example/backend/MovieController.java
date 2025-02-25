@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 // import org.springframework.hateoas.CollectionModel;
 // import org.springframework.hateoas.EntityModel;
 // import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,8 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/movies")
+@CrossOrigin(origins = "http://localhost:5173")
 public class MovieController {
-    
+
     private final MovieService movieService;
 
     public MovieController(MovieService movieService) {
@@ -104,8 +106,8 @@ public class MovieController {
         }
         return ResponseEntity.ok(this.movieService.getNumberOfReviews(genre, country, studio, year, rating, min_year, max_year, platform));
     }
-    
-    
+
+
     @GetMapping("/movie")
     public ResponseEntity<Movie> searchMovieByName(@RequestParam String title) {
         Movie movie = this.movieService.getMovieByTitle(title);
@@ -129,5 +131,5 @@ public class MovieController {
         String[] platforms = {"RT", "MC", "LB", "IMDB", "TMDB"};
         return Arrays.asList(platforms).contains(platform);
     }
-    
+
 }
