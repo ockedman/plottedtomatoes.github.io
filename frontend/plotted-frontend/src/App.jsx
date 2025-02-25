@@ -64,7 +64,7 @@ function App() {
   ];
 
   return (
-    <Tabs>
+    <Tabs defaultIndex={1}>
       <div className="app-container">
         <aside className="sidebar">
           <div className="top-left-icon">

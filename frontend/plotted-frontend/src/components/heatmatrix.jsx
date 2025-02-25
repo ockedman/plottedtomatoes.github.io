@@ -117,7 +117,7 @@ const HeatMap = ({ onCellClick }) => {
   ];
 
   return (
-    <div style={{ height: "500px" }}>
+    <div className="heatmatrix-parent">
       <ResponsiveHeatMap
         data={sampleHeatMapData}
         margin={{ top: 60, right: 90, bottom: 60, left: 90 }}

@@ -22,7 +22,7 @@ const Treemap = () => {
   };
 
   return (
-    <div style={{ height: "500px" }}>
+    <div className="treemap-parent">
       <ResponsiveTreeMap
         data={sampleTreeData}
         identity="name"

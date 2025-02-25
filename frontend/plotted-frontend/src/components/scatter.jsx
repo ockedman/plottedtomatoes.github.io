@@ -23,7 +23,7 @@ const Scatter = () => {
   ];
 
   return (
-    <div style={{ height: "500px" }}>
+    <div className="scatter-parent">
       {/* <ResponsiveScatterPlot
         data={sampleScatterData}
         margin={{ top: 40, right: 90, bottom: 70, left: 90 }}
@@ -57,7 +57,7 @@ const Scatter = () => {
       /> */}
       <ResponsiveScatterPlot
         data={sampleScatterData}
-        margin={{ top: 40, right: 90, bottom: 70, left: 90 }}
+        margin={{ top: 10, right: 40, bottom: 60, left: 60 }}
         xScale={{ type: "linear", min: 0, max: "auto" }}
         yScale={{ type: "linear", min: 0, max: "auto" }}
         blendMode="normal"
@@ -66,18 +66,18 @@ const Scatter = () => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "X Axis",
+          legend: "# of Ratings (1000s)",
           legendPosition: "middle",
-          legendOffset: 46,
+          legendOffset: 40,
         }}
         axisLeft={{
           orient: "left",
-          tickSize: 5,
-          tickPadding: 5,
+          tickSize: 2,
+          tickPadding: 2,
           tickRotation: 0,
-          legend: "Y Axis",
+          legend: "Rating Score",
           legendPosition: "middle",
-          legendOffset: -60,
+          legendOffset: -40,
         }}
         colors={{
           scheme: "red_grey",

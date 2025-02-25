@@ -72,14 +72,19 @@ const PageOne = () => {
             </ul>
           </div>
           <div className="line-chart">
+            <h3> Overview </h3>
             <LineGraph data={lineData} />
           </div>
         </div>
         <div className="scatter-plot">
+          <h3 className="scatter-title"> Ratings vs Reviews </h3>
           <Scatter />
         </div>
       </div>
       <div className="right-column">
+        <div className="searchbar">
+          <h3> Search Bar here </h3>
+        </div>
         <div className="options">
           <ul className="right-list">
             <li>Genre</li>
@@ -93,9 +98,11 @@ const PageOne = () => {
         </div>
         <div className="scrollable-content">
           <div className="heatmap">
+            {/* <h3> Heatmap </h3> */}
             <HeatMap onCellClick={handleCellClick} />
           </div>
           <div className="treemap">
+            {/* <h3> Treemap </h3> */}
             <Treemap />
           </div>
         </div>
