@@ -33,8 +33,8 @@ public class Movie {
     private int RTnb;
     private Double LBrating;
     private int LBnb;
-    private Double MCrating;
-    private int MCnb;
+    // private Double MCrating;
+    // private int MCnb;
     private Double IMDBrating;
     private int IMDBnb;
     private Double TMDBrating;
@@ -45,7 +45,7 @@ public class Movie {
     };
 
     public Movie(String title, List<String> genre, String country, List<String> studio, Integer year, int runtime, String rating,
-        Long box_office, Long budget, Double RTrating, int RTnb, Double LBrating, int LBnb, Double MCrating, int MCnb, Double IMDBrating, int IMDBnb,
+        Long box_office, Long budget, Double RTrating, int RTnb, Double LBrating, int LBnb, Double IMDBrating, int IMDBnb,
         Double TMDBrating, int TMDBnb) {
 
         this.title = title;
@@ -62,8 +62,8 @@ public class Movie {
         this.RTnb = RTnb;
         this.LBrating = LBrating;
         this.LBnb = LBnb;
-        this.MCrating = MCrating;
-        this.MCnb = MCnb;
+        // this.MCrating = MCrating;
+        // this.MCnb = MCnb;
         this.IMDBrating = IMDBrating;
         this.IMDBnb = IMDBnb;
         this.TMDBrating = TMDBrating;
@@ -124,8 +124,8 @@ public class Movie {
             this.TMDBnb = 0;
         }
     
-        this.MCrating = null;
-        this.MCnb = 0;
+        // this.MCrating = null;
+        // this.MCnb = 0;
     }
     
 
@@ -213,21 +213,21 @@ public class Movie {
         this.LBnb = LBnb;
     }
 
-    public Double getMCrating() {
-        return this.MCrating;
-    }
+    // public Double getMCrating() {
+        // return this.MCrating;
+    // }
 
-    public void setMCrating(Double MCrating) {
-        this.MCrating = MCrating;
-    }
+    // public void setMCrating(Double MCrating) {
+        // this.MCrating = MCrating;
+    // }
 
-    public int getMCnb() {
-        return this.MCnb;
-    }
+    // public int getMCnb() {
+        // return this.MCnb;
+    // }
 
-    public void setMCnb(int MCnb) {
-        this.MCnb = MCnb;
-    }
+    // public void setMCnb(int MCnb) {
+        // this.MCnb = MCnb;
+    // }
 
     public Double getIMDBrating() {
         return this.IMDBrating;

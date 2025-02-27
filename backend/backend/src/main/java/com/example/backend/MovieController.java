@@ -72,6 +72,22 @@ public class MovieController {
         return ResponseEntity.ok(this.movieService.getAverage(genre, country, studio, year, rating, min_year, max_year, platform));
     }
 
+    @GetMapping("/average_across")
+    public ResponseEntity<HashMap<Integer, Double>> searchAverageAcrossYears(
+        @RequestParam(required = false) String genre,
+        @RequestParam(required = false) String country,
+        @RequestParam(required = false) String studio,
+        @RequestParam(required = false) String rating,
+        @RequestParam(required = true) String min_year,
+        @RequestParam(required = true) String max_year,
+        @RequestParam(required = true) String platform) {
+            
+        if (!platformExists(platform)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(this.movieService.getAverageAcrossYears(genre, country, studio, rating, min_year, max_year, platform));
+    }
+
     @GetMapping("/allaverages")
     public ResponseEntity<HashMap<String, Double>> searchAllAverages(
         @RequestParam(required = false) String genre,
@@ -86,6 +102,23 @@ public class MovieController {
         if (movies == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
             .body(new HashMap<String, Double>());
+        }
+        return ResponseEntity.ok(movies);
+    }
+    
+    @GetMapping("/allaverages_across")
+    public ResponseEntity<HashMap<Integer, HashMap<String, Double>>> searchAllAverages(
+        @RequestParam(required = false) String genre,
+        @RequestParam(required = false) String country,
+        @RequestParam(required = false) String studio,
+        @RequestParam(required = false) String rating,
+        @RequestParam(required = true) String min_year,
+        @RequestParam(required = true) String max_year
+    ) {
+        HashMap<Integer, HashMap<String, Double>> movies = this.movieService.getAllAveragesAcrossYears(genre, country, studio, rating, min_year, max_year);
+        if (movies == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(null);
         }
         return ResponseEntity.ok(movies);
     }
