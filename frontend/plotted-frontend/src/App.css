@@ -1,0 +1,244 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #252422; /* dark background */
+  color: #fffcf2; /* off-white text */
+  font-family: "Arial", sans-serif;
+}
+
+#root {
+  max-width: 100%;
+  padding: 0 0 0 2rem;
+}
+
+/* main app */
+.app-container {
+  display: flex;
+  flex-direction: row; /* horizontal layout */
+  align-items: flex-start;
+  gap: 2rem;
+  position: relative; /* so we can position an icon in top-left if needed */
+}
+
+/* Sidebar styling */
+.sidebar {
+  position: fixed; /* Fixed to the left side of the window */
+  top: 0;
+  left: 0;
+  height: 100vh; /* Full viewport height */
+  width: 80px; /* Adjust width as needed */
+  background-color: #403d39;
+  display: flex;
+  flex-direction: column;
+  justify-content: start; /* Start stacking from the top */
+  align-items: center; /* Center items horizontally */
+  padding: 1rem 0;
+  border-radius: 0; /* Remove border-radius */
+}
+
+/* Top-left icon */
+.top-left-icon {
+  margin-bottom: 2rem; /* Space below the icon */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.icon-image {
+  width: 60px;
+  height: 60px;
+}
+
+/* TabList (sidebar) */
+.tablist {
+  height: 80vh;
+  list-style: none;
+  display: flex;
+  jflex-grow: 1; /* Allow the tablist to grow and fill the remaining space */
+  justify-content: space-evenly;
+  gap: 1rem; /* space between tabs */
+  writing-mode: sideways-lr;
+}
+
+/* Each tab button fills the full width of the sidebar,
+   with some padding and spacing. */
+.react-tabs__tab {
+  cursor: pointer;
+  padding: 40px 10px;
+  border: 1px;
+  border-color: black;
+  border-radius: 2px;
+}
+
+.react-tabs__tab:hover {
+  opacity: 0.8;
+  background-color: #b3a89e;
+  border-color: #eb5e28;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  opacity: 0.9;
+}
+
+/* React-Tabs / selected tab styles */
+.react-tabs__tab--selected {
+  background-color: #eb5e28;
+  color: #fffcf2; /* contrast text color */
+}
+
+/* Main content area (to the right of the sidebar) */
+.main-content {
+  flex: 1; /* Take up the remaining horizontal space */
+  padding: 1rem;
+  border-radius: 5px;
+  margin-left: 40px; /* Adjust to account for the sidebar width */
+  height: 1100px;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh; /* Full viewport height */
+  gap: 10px;
+}
+
+/* --------------------------------------------
+   LEFT COLUMN
+---------------------------------------------*/
+.left-column {
+  display: flex;
+  flex-direction: column;
+  width: 55%; /* Adjust width as needed */
+  background-color: #ccc5b9;
+  border-radius: 5px;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  height: fit-content;
+}
+
+.line-chart-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.selection-criteria {
+  padding: 1rem;
+  border-radius: 5px;
+  color: #fffcf2;
+}
+
+.left-list {
+  width: 80px;
+  list-style-type: none;
+  margin: 0;
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #252422;
+  border-radius: 6px;
+}
+
+.left-list > li {
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+.line-chart {
+  flex: 1; /* Take up remaining space */
+  background-color: #252422;
+  padding: 5px;
+  border-radius: 5px;
+  width: 400px;
+}
+
+.line-graph-parent {
+  height: 400px;
+}
+
+.scatter-title {
+  margin-left: 15px;
+}
+
+.scatter-plot {
+  flex: 1; /* Take up remaining space */
+  background-color: #252422;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.scatter-parent {
+  height: 400px;
+  width: 100%;
+}
+
+/* --------------------------------------------
+   RIGHT COLUMN
+---------------------------------------------*/
+.right-column {
+  display: flex;
+  flex-direction: column;
+  width: 45%; /* Adjust width as needed */
+  gap: 1rem;
+}
+
+.searchbar {
+  display: none;
+}
+
+.options {
+  background-color: #403d39;
+  padding: 1rem;
+  border-radius: 5px;
+  color: #fffcf2;
+}
+
+.right-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+}
+
+.right-list > li {
+  background-color: gray;
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+
+.scrollable-content {
+  flex: 1; /* Take up remaining space */
+  overflow-y: auto; /* Allow vertical scrolling */
+  background-color: #ccc5b9;
+  /* background-color: #252422; */
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.heatmap {
+  height: 400px; /* Adjust height as needed */
+  background-color: #252422;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  padding: 5px;
+  width: 550px;
+  height: 500px;
+}
+
+.heatmatrix-parent {
+  height: 500px;
+}
+
+.treemap {
+  background-color: #252422;
+  border-radius: 5px;
+  width: 550px;
+}
+
+.treemap-parent {
+  height: 350px;
+}

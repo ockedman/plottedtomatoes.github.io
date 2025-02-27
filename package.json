@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@nivo/core": "^0.88.0",
+    "@nivo/parallel-coordinates": "^0.88.0",
     "unofficial-metacritic": "^2.0.0"
   }
 }
