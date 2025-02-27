@@ -54,9 +54,9 @@ public class MovieService {
                 case "LB":
                     t = movie.getLBrating();
                     break;
-                case "MC":
-                    t = movie.getMCrating();
-                    break;
+                // case "MC":
+                    // t = movie.getMCrating();
+                    // break;
                 case "IMDB":
                     t = movie.getIMDBrating();
                     break;
@@ -69,6 +69,50 @@ public class MovieService {
         return s[0] / selection.size();
     }
 
+    
+    public HashMap<Integer, Double> getAverageAcrossYears(String genre, String country, String studio, String rating, String min_year,
+            String max_year, String platform) {
+        Specification<Movie> spec = MovieSpecification.filterMovies(genre, country, studio, rating, null, min_year, max_year);
+        List<Movie> selection = movieRepository.findAll(spec);
+        
+        HashMap<Integer, Double> s = new HashMap<>();
+        HashMap<Integer, Integer> count = new HashMap<>();
+
+        if (selection.isEmpty()) {
+            return s;
+        }
+
+        for (int i = Integer.parseInt(min_year); i <= Integer.parseInt(max_year); i++) {
+            s.put(i, 0.0);
+            count.put(i, 0);
+        }
+
+        selection.forEach(movie -> {
+            Double t;
+            switch(platform) {
+                case "RT":
+                    t = movie.getRTrating();
+                    break;
+                case "LB":
+                    t = movie.getLBrating();
+                    break;
+                // case "MC":
+                    // t = movie.getMCrating();
+                    // break;
+                case "IMDB":
+                    t = movie.getIMDBrating();
+                    break;
+                default:
+                    t = movie.getTMDBrating();
+            }
+            s.put(movie.getYear(), s.get(movie.getYear()) + t);
+            count.put(movie.getYear(), count.get(movie.getYear()) + 1);
+        });
+
+        s.forEach((k, v) -> s.put(k, s.get(k)/count.get(k)));
+        return s;
+    }
+
     // returns the average of grades for a selection of movies, for every platform
     public HashMap<String, Double> getAllAverages(String genre, String country, String studio, String year, String rating, String min_year, String max_year) {
         Specification<Movie> spec = MovieSpecification.filterMovies(genre, country, studio, year, rating, min_year, max_year);
@@ -77,7 +121,7 @@ public class MovieService {
         HashMap<String, Double> s = new HashMap<>();
         s.put("RT", 0.0);
         s.put("LB", 0.0);
-        s.put("MC", 0.0);
+        // s.put("MC", 0.0);
         s.put("IMDB", 0.0);
         s.put("TMDB", 0.0);
 
@@ -88,13 +132,58 @@ public class MovieService {
         selection.forEach(movie -> {
             s.put("RT", s.get("RT") + movie.getRTrating());
             s.put("LB", s.get("LB") + movie.getLBrating());
-            s.put("MC", s.get("MC") + movie.getMCrating());
+            // s.put("MC", s.get("MC") + movie.getMCrating());
             s.put("IMDB", s.get("IMDB") + movie.getIMDBrating());
             s.put("TMDB", s.get("TMDB") + movie.getTMDBrating());
         });
 
         int len = selection.size();
         s.forEach((k, v) -> s.put(k, s.get(k)/len));
+
+        return s;
+    }
+
+    
+    public HashMap<Integer, HashMap<String, Double>> getAllAveragesAcrossYears(String genre, String country, String studio, String rating,
+            String min_year, String max_year) {
+                Specification<Movie> spec = MovieSpecification.filterMovies(genre, country, studio, null, rating, min_year, max_year);
+        List<Movie> selection = movieRepository.findAll(spec);
+
+        HashMap<Integer, HashMap<String, Double>> s = new HashMap<>();
+        HashMap<Integer, Integer> count = new HashMap<>();
+
+        
+        if (selection.isEmpty()) {
+            return s;
+        }
+        
+        for (int i = Integer.parseInt(min_year); i <= Integer.parseInt(max_year); i++) {
+            HashMap<String, Double> plat = new HashMap<>();
+            plat.put("RT", 0.0);
+            plat.put("LB", 0.0);
+            // s.put("MC", 0.0);
+            plat.put("IMDB", 0.0);
+            plat.put("TMDB", 0.0);
+            s.put(i, plat);
+            count.put(i, 0);
+        }
+
+
+        selection.forEach(movie -> {
+            s.get(movie.getYear()).put("RT", s.get(movie.getYear()).get("RT") + movie.getRTrating());
+            s.get(movie.getYear()).put("LB", s.get(movie.getYear()).get("LB") + movie.getLBrating());
+            // s.put("MC", s.get("MC") + movie.getMCrating());
+            s.get(movie.getYear()).put("IMDB", s.get(movie.getYear()).get("IMDB") + movie.getIMDBrating());
+            s.get(movie.getYear()).put("TMDB", s.get(movie.getYear()).get("TMDB") + movie.getTMDBrating());
+            count.put(movie.getYear(), count.get(movie.getYear()) + 1);
+        });
+
+        
+        for (int i = Integer.parseInt(min_year); i <= Integer.parseInt(max_year); i++) {
+            HashMap<String, Double> single = s.get(i);
+            Integer movies_of_year = count.get(i);
+            single.forEach((k, v) -> single.put(k, single.get(k)/movies_of_year));
+        }
 
         return s;
     }
@@ -116,9 +205,9 @@ public class MovieService {
                     t = movie.getLBnb();
                     System.out.println("we added" + t + "movies");
                     break;
-                case "MC":
-                    t = movie.getMCnb();
-                    break;
+                // case "MC":
+                    // t = movie.getMCnb();
+                    // break;
                 case "IMDB":
                     t = movie.getIMDBnb();
                     break;
@@ -157,4 +246,8 @@ public class MovieService {
     public void saveAll(List<Movie> movies) {
         this.movieRepository.saveAll(movies);
     }
+
+
+
+
 }
