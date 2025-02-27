@@ -2,7 +2,7 @@
 ### `movies.json`
 
 example of movie entry:
-```
+```json
 {
       "movieId": "tt0816692",           # IMDb ID
       "title": "Interstellar",          # Movie Title
