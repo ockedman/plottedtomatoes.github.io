@@ -9,11 +9,6 @@ const HeatMap = ({ onCellClick }) => {
         { x: "RottenTomatoes", y: 41691 },
         { x: "Metacritic", y: 9128 },
         { x: "Letterboxd", y: -35060 },
-        { x: "FilmAffinity", y: 28571 },
-        { x: "IMDb Freedive", y: 87777 },
-        { x: "AllMovie", y: -79438 },
-        { x: "Flickchart", y: 16942 },
-        { x: "Criticker", y: -52014 },
       ],
     },
     {
@@ -23,11 +18,6 @@ const HeatMap = ({ onCellClick }) => {
         { x: "RottenTomatoes", y: 56071 },
         { x: "Metacritic", y: -37631 },
         { x: "Letterboxd", y: 87241 },
-        { x: "FilmAffinity", y: 1291 },
-        { x: "IMDb Freedive", y: -70224 },
-        { x: "AllMovie", y: 45205 },
-        { x: "Flickchart", y: -9173 },
-        { x: "Criticker", y: 73157 },
       ],
     },
     {
@@ -37,11 +27,6 @@ const HeatMap = ({ onCellClick }) => {
         { x: "RottenTomatoes", y: -66951 },
         { x: "Metacritic", y: 11467 },
         { x: "Letterboxd", y: 0 },
-        { x: "FilmAffinity", y: 33323 },
-        { x: "IMDb Freedive", y: -46640 },
-        { x: "AllMovie", y: 55224 },
-        { x: "Flickchart", y: -76491 },
-        { x: "Criticker", y: 30409 },
       ],
     },
     {
@@ -51,11 +36,6 @@ const HeatMap = ({ onCellClick }) => {
         { x: "RottenTomatoes", y: 12598 },
         { x: "Metacritic", y: 80915 },
         { x: "Letterboxd", y: -50018 },
-        { x: "FilmAffinity", y: 43668 },
-        { x: "IMDb Freedive", y: 99102 },
-        { x: "AllMovie", y: 12838 },
-        { x: "Flickchart", y: -37412 },
-        { x: "Criticker", y: 68721 },
       ],
     },
     {
@@ -65,11 +45,6 @@ const HeatMap = ({ onCellClick }) => {
         { x: "RottenTomatoes", y: 27830 },
         { x: "Metacritic", y: 46110 },
         { x: "Letterboxd", y: 9382 },
-        { x: "FilmAffinity", y: -52977 },
-        { x: "IMDb Freedive", y: -19012 },
-        { x: "AllMovie", y: 85025 },
-        { x: "Flickchart", y: -20691 },
-        { x: "Criticker", y: 4396 },
       ],
     },
     {
@@ -79,11 +54,6 @@ const HeatMap = ({ onCellClick }) => {
         { x: "RottenTomatoes", y: 99388 },
         { x: "Metacritic", y: 47101 },
         { x: "Letterboxd", y: -53809 },
-        { x: "FilmAffinity", y: -55378 },
-        { x: "IMDb Freedive", y: 65390 },
-        { x: "AllMovie", y: 28357 },
-        { x: "Flickchart", y: -40761 },
-        { x: "Criticker", y: 72880 },
       ],
     },
     {
@@ -93,11 +63,6 @@ const HeatMap = ({ onCellClick }) => {
         { x: "RottenTomatoes", y: 58100 },
         { x: "Metacritic", y: 91789 },
         { x: "Letterboxd", y: -44039 },
-        { x: "FilmAffinity", y: 4583 },
-        { x: "IMDb Freedive", y: -18547 },
-        { x: "AllMovie", y: 14195 },
-        { x: "Flickchart", y: 3091 },
-        { x: "Criticker", y: -47282 },
       ],
     },
     {
@@ -107,11 +72,6 @@ const HeatMap = ({ onCellClick }) => {
         { x: "RottenTomatoes", y: 56824 },
         { x: "Metacritic", y: -85571 },
         { x: "Letterboxd", y: 7639 },
-        { x: "FilmAffinity", y: 94706 },
-        { x: "IMDb Freedive", y: 30815 },
-        { x: "AllMovie", y: 77259 },
-        { x: "Flickchart", y: -90067 },
-        { x: "Criticker", y: 64052 },
       ],
     },
   ];
@@ -119,6 +79,9 @@ const HeatMap = ({ onCellClick }) => {
   return (
     <div className="heatmatrix-parent">
       <ResponsiveHeatMap
+        onClick={(cell, event) => {
+          onCellClick(cell, event);
+        }}
         data={sampleHeatMapData}
         margin={{ top: 60, right: 90, bottom: 60, left: 90 }}
         valueFormat=">-.2s"

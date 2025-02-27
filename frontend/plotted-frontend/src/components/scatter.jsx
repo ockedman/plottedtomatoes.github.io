@@ -24,37 +24,6 @@ const Scatter = () => {
 
   return (
     <div className="scatter-parent">
-      {/* <ResponsiveScatterPlot
-        data={sampleScatterData}
-        margin={{ top: 40, right: 90, bottom: 70, left: 90 }}
-        xScale={{ type: "linear", min: 0, max: "auto" }}
-        yScale={{ type: "linear", min: 0, max: "auto" }}
-        blendMode="normal"
-        axisBottom={{
-          orient: "bottom",
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: "X Axis",
-          legendPosition: "middle",
-          legendOffset: 46,
-        }}
-        axisLeft={{
-          orient: "left",
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: "Y Axis",
-          legendPosition: "middle",
-          legendOffset: -60,
-        }}
-        nodeSize={10}
-        theme={{
-          labels: {
-            text: { fontSize: 12 },
-          },
-        }}
-      /> */}
       <ResponsiveScatterPlot
         data={sampleScatterData}
         margin={{ top: 10, right: 40, bottom: 60, left: 60 }}

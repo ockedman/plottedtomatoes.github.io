@@ -3,39 +3,55 @@ import Treemap from "./treemap";
 import HeatMap from "./heatmatrix";
 import LineGraph from "./line-graph";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const PageOne = () => {
   // api calls to be made here then passed into the components, or create a helper to
   // pass a state variable into heat matrix, on clicking a cell this would be updated, which can update the
   // (maybe through helper function passed into the heatmatrix component)
   // that helper function updates state in this page, which is passed into the line graph / other props
-  const [lineData, setLineData] = useState(null);
+  const [data, setData] = useState(null);
+  // const [error, setError] = useState(null);
   const api_url = "http://localhost:8080/api/movies/";
 
-  const response = axios.get(api_url + "allaverages", {
-    params: {
-      min_year: 2014,
-      max_year: 2015,
-    },
-  });
-  console.log(response.data);
+  //can call allaverages for heatmatrix also --
+  // should return hashmap with {{"RT" : 77.5}, {"IMDB" : 65.4}, ...}
+  useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(api_url + "search", {
+            params: {
+              year: 2014,
+              genre: "Sci-Fi",
+            },
+          });
+          // setData(response.data); // Access the data here
+          console.log(response.data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      fetchData();
+    }, []);
 
-  const handleCellClick = async (x_var, y_var) => {
-    try {
-      // this may have to be several of switch statements for each call,
-      //
-      const dataFromApi = await axios.get(api_url + "search", {
-        params: {
-          genre: x_var,
-          site: y_var,
-        },
-      });
-      setLineData(dataFromApi);
-      console.log(dataFromApi);
-    } catch (e) {
-      console.error(e);
-    }
+  const handleCellClick = async (cell, event) => {
+    const [y, x] = cell.id.split('.')
+    // try {
+    //   // this may have to be several of switch statements for each call,
+    //   //
+    //   const dataFromApi = await axios.get(api_url + "allaverages", {
+    //     params: {
+    //       genre: y,
+    //       site: x,
+    //       min_year: 2000, //random default start range, to be plotted on the line chart
+    //     },
+    //   });
+    //   setData(dataFromApi);
+    //   console.log(dataFromApi);
+    // } catch (e) {
+    //   console.error(e);
+    // }
+    console.log("The Clicked y: " + y + " the clicked x: " + x);
   };
 
   return (
@@ -55,7 +71,7 @@ const PageOne = () => {
           </div>
           <div className="line-chart">
             <h3> Overview </h3>
-            <LineGraph data={response.data} />
+            <LineGraph data={data} />
           </div>
         </div>
         <div className="scatter-plot">
