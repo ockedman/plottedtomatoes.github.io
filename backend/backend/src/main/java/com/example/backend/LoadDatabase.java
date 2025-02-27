@@ -2,26 +2,14 @@ package com.example.backend;
 
 import java.io.IOException;
 import java.io.InputStream;
-// import java.nio.file.Files;
-// import java.nio.file.Path;
-// import java.nio.file.Paths;
 import java.util.ArrayList;
-// import java.util.Arrays;
 import java.util.List;
-// import java.util.Optional;
-
-// import org.hibernate.loader.ast.spi.Loadable;
-// import org.slf4j.Logger;
-// import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
-// import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-// import aj.org.objectweb.asm.TypeReference;
-// import jakarta.persistence.criteria.Path;
 
 @Configuration
 public class LoadDatabase implements CommandLineRunner {

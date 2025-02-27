@@ -12,7 +12,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long>, JpaSpecific
 
     List<Movie> findAllByOrderByRTratingDesc();
     List<Movie> findAllByOrderByLBratingDesc();
-    List<Movie> findAllByOrderByMCratingDesc();
+    // List<Movie> findAllByOrderByMCratingDesc();
     List<Movie> findAllByOrderByIMDBratingDesc();
     List<Movie> findAllByOrderByTMDBratingDesc();
 }
