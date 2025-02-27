@@ -81,7 +81,7 @@ public class MovieController {
         @RequestParam(required = true) String min_year,
         @RequestParam(required = true) String max_year,
         @RequestParam(required = true) String platform) {
-            
+
         if (!platformExists(platform)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
@@ -105,7 +105,7 @@ public class MovieController {
         }
         return ResponseEntity.ok(movies);
     }
-    
+
     @GetMapping("/allaverages_across")
     public ResponseEntity<HashMap<Integer, HashMap<String, Double>>> searchAllAverages(
         @RequestParam(required = false) String genre,

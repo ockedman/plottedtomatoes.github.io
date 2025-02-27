@@ -1,7 +1,9 @@
 import { ResponsiveHeatMap } from "@nivo/heatmap";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const HeatMap = ({ onCellClick }) => {
-  const sampleHeatMapData = [
+  const [matrixData, setMatrixData] = useState([
     {
       id: "Action",
       data: [
@@ -74,7 +76,46 @@ const HeatMap = ({ onCellClick }) => {
         { x: "Letterboxd", y: 7639 },
       ],
     },
-  ];
+  ])
+
+  useEffect(() => {
+    const retrieveMatrixData = async () => {
+      // 5 calls of allaverages --
+      const sources = ["IMDB", "TMDB", "RT", "LB"];
+      const genres = ["Action", "Comedy", "Drama", "Horror", "Romance", "Sci-Fi", "History"];
+      let data = [];
+      for (let i = 0; i < genres.length; i++) {
+        try {
+          let res = await axios.get("http://localhost:8080/api/movies/allaverages", {
+            params: {
+              genre: genres[i],
+            }
+          })
+          data.push(res.data);
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      return data.map((item, index) => {
+        const category = genres[index % genres.length];
+        return {
+          id: category,
+          data: sources.map(source => ({
+            x: source,
+            y: item[source]
+          }))
+        };
+      });;
+    }
+    const fetchData = async () => {
+      const data = await retrieveMatrixData();
+      setMatrixData(data);
+      console.log(data);
+    }
+    fetchData();
+  }, []);
+
+
 
   return (
     <div className="heatmatrix-parent">
@@ -82,7 +123,7 @@ const HeatMap = ({ onCellClick }) => {
         onClick={(cell, event) => {
           onCellClick(cell, event);
         }}
-        data={sampleHeatMapData}
+        data={matrixData}
         margin={{ top: 60, right: 90, bottom: 60, left: 90 }}
         valueFormat=">-.2s"
         axisTop={{
@@ -113,10 +154,11 @@ const HeatMap = ({ onCellClick }) => {
         }}
         colors={{
           type: "diverging",
+          // scheme: "red_yellow_green",
           scheme: "red_grey",
           divergeAt: 0.5,
-          minValue: -100000,
-          maxValue: 100000,
+          minValue: 5,
+          maxValue: 7.2,
         }}
         emptyColor="#555555"
         legends={[

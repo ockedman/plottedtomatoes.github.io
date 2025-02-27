@@ -1,31 +1,29 @@
 import { ResponsiveLine } from "@nivo/line";
 
 const LineGraph = ({ lineData }) => {
-  const sampleLineData = [
-    {
-      id: "series A",
-      data: [
-        { x: "Point 1", y: 10 },
-        { x: "Point 2", y: 30 },
-        { x: "Point 3", y: 50 },
-        { x: "Point 4", y: 20 },
-      ],
-    },
-    {
-      id: "series B",
-      data: [
-        { x: "Point 1", y: 40 },
-        { x: "Point 2", y: 15 },
-        { x: "Point 3", y: 75 },
-        { x: "Point 4", y: 60 },
-      ],
-    },
-  ];
+
+  const transformData = (originalData) => {
+    const series = ["IMDB", "TMDB", "RT", "LB"];
+    return series.map((serie) => ({
+      id: serie,
+      data: Object.keys(originalData).map((year) => {
+        const value = originalData[year]?.[serie]; // Safe access
+        if (value === undefined || isNaN(value)) {
+          console.warn(`Skipping invalid data: year=${year}, serie=${serie}, value=${value}`);
+          return null;
+        }
+        return { x: String(year), y: value }; // Ensure x is a string
+      }).filter(point => point !== null), // Remove invalid points
+    })).filter(serie => serie.data.length > 0); // Remove empty series
+  };
+  const transData = transformData(lineData);
+  console.log(transData)
+  const fixedLineData = transData.map(({ id, data }) => ({ id, data }));
 
   return (
     <div className="line-graph-parent">
       <ResponsiveLine
-        data={sampleLineData}
+        data={fixedLineData}
         margin={{ top: 20, right: 20, bottom: 60, left: 60 }}
         xScale={{ type: "point" }}
         yScale={{
@@ -79,7 +77,7 @@ const LineGraph = ({ lineData }) => {
           },
           tooltip: {
             container: {
-              color: "#ffffff", // Set tooltip text color to white
+              color: "#ffaaaa", // Set tooltip text color to white
             },
           },
         }}

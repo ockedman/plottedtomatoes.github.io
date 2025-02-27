@@ -1,6 +1,6 @@
 import { ResponsiveScatterPlot } from "@nivo/scatterplot";
 
-const Scatter = () => {
+const Scatter = ({ data }) => {
   const sampleScatterData = [
     {
       id: "group A",

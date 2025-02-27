@@ -9,7 +9,7 @@ function App() {
     <Tabs defaultIndex={1}>
       <div className="app-container">
         <aside className="sidebar">
-          <div className="top-left-icon">
+          <div className="top-left-icon" onClick= {() => { window.location.reload() }}>
             <img src={logoImage} alt="Icon" className="icon-image" />
           </div>
           <TabList className="tablist">
