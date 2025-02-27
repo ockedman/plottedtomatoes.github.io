@@ -38,7 +38,7 @@ const LineGraph = ({ lineData }) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "X Axis",
+          legend: "Year",
           legendOffset: 36,
           legendPosition: "middle",
         }}
@@ -47,7 +47,7 @@ const LineGraph = ({ lineData }) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "Y Axis",
+          legend: "Rating",
           legendOffset: -40,
           legendPosition: "middle",
         }}
