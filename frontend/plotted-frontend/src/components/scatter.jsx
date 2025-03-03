@@ -1,6 +1,8 @@
 import { ResponsiveScatterPlot } from "@nivo/scatterplot";
+import { useEffect } from "react";
+import axios from "axios";
 
-const Scatter = ({ data }) => {
+const Scatter = (x, y) => {
   const sampleScatterData = [
     {
       id: "group A",
@@ -21,6 +23,22 @@ const Scatter = ({ data }) => {
       ],
     },
   ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+      const res = axios.get("http://localhost:8080/api/movies/best", {
+        params: {
+          n: 10,
+        }
+      });
+      console.log(res);
+    } catch (e) {
+      console.log(e)
+    }
+    }
+    fetchData();
+  }, [])
 
   return (
     <div className="scatter-parent">

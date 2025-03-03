@@ -1,4 +1,5 @@
 import { ResponsiveTreeMap } from "@nivo/treemap";
+import { useEffect } from "react";
 
 const Treemap = () => {
   const sampleTreeData = {
