@@ -6,6 +6,9 @@ example of movie entry:
 {
       "movieId": "tt0816692",           # IMDb ID
       "title": "Interstellar",          # Movie Title
+      "directors": [                    # director(s) of the movie
+        "Christopher Nolan"
+      ],
       "studios": [                      # Studios
         "Legendary Pictures",
         "Syncopy",

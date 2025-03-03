@@ -7,10 +7,11 @@ def create_json(data):
         "data": data
     }
 
-def create_movie_entry(movie_id, title, studios, release_year, release_date, budget, revenue, genres, countries, language, runtime):
+def create_movie_entry(movie_id, title, directors, studios, release_year, release_date, budget, revenue, genres, countries, language, runtime):
     return {
         "movieId": movie_id,
         "title": title,
+        "directors": directors,
         "studios": studios,
         "releaseYear": release_year,
         "releaseDate": release_date,
@@ -46,6 +47,7 @@ def preprocess(lite=False):
         movie = create_movie_entry(
             movie_data['imdbId'],
             title,
+            str(movie_data['directors']).split(","),
             str(movie_data['studios']).split(","),
             year,
             movie_data['releaseDateTheaters'],
