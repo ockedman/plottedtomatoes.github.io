@@ -20,6 +20,11 @@ example of movie entry:
         "Drama",
         "Sci-Fi"
       ],
+      "productionCountries": [          # Production countries
+        "United Kingdom",
+        "United States of America"
+      ],
+      "originalLanguage": "en",         # Original Language
       "runtime": 169.0,                 # Runtime in minutes
       "rottenTomatoesScore": {          # Rotten Tomatoes data
         "averageScore": 8.6,            # average score given by the audience (originally 0 to 5 stars)
