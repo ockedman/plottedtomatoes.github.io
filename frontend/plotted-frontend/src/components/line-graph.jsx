@@ -257,7 +257,7 @@ const LineGraph = ({ y, x }) => {
       data: Object.keys(originalData).map((year) => {
         const value = originalData[year]?.[serie]; // Safe access
         if (value === undefined || isNaN(value)) {
-          console.warn(`Skipping invalid data: year=${year}, serie=${serie}, value=${value}`);
+          // console.warn(`Skipping invalid data: year=${year}, serie=${serie}, value=${value}`);
           return null;
         }
         return { x: String(year), y: value }; // Ensure x is a string

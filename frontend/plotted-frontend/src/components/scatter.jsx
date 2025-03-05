@@ -30,7 +30,7 @@ const Scatter = (x, y) => {
       const averageRating = (movie.rtrating + movie.lbrating + movie.imdbrating + movie.tmdbrating) / 4;
 
       // Calculate the total number of ratings
-      const totalRatings = (movie.rtnb + movie.lbnb + movie.imdbnb + movie.tmdbnb);
+      const totalRatings = (movie.rtnb + movie.lbnb + movie.imdbnb + movie.tmdbnb) / 1000;
 
       return {
         id: movie.title,
