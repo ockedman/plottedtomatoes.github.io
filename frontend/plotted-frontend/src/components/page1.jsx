@@ -16,7 +16,7 @@ const PageOne = () => {
 
   const handleCellClick = async (cell, event) => {
     const [y, x] = cell.id.split('.')
-    console.log(x)
+    // console.log(x)
     setY(y);
     setX(x);
   };

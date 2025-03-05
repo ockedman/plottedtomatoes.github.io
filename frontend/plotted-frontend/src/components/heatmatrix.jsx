@@ -185,7 +185,7 @@ const HeatMap = ({ onCellClick }) => {
     const fetchData = async () => {
       const data = await retrieveMatrixData();
       setMatrixData(data);
-      console.log(data);
+      // console.log(data);
     }
     fetchData();
   }, []);

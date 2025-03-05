@@ -1,9 +1,9 @@
 import { ResponsiveScatterPlot } from "@nivo/scatterplot";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Scatter = (x, y) => {
-  const sampleScatterData = [
+  const [data, setData] = useState([
     {
       id: "group A",
       data: [
@@ -22,31 +22,54 @@ const Scatter = (x, y) => {
         { x: 70, y: 60 },
       ],
     },
-  ];
+  ]);
+
+  const transformDataForScatterPlot = (movies) => {
+    return movies.map(movie => {
+      // Calculate the average rating
+      const averageRating = (movie.rtrating + movie.lbrating + movie.imdbrating + movie.tmdbrating) / 4;
+
+      // Calculate the total number of ratings
+      const totalRatings = (movie.rtnb + movie.lbnb + movie.imdbnb + movie.tmdbnb);
+
+      return {
+        id: movie.title,
+        data: [
+          {
+            x: totalRatings,
+            y: averageRating
+          }
+        ]
+      };
+    });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-      const res = axios.get("http://localhost:8080/api/movies/best", {
-        params: {
-          n: 10,
-        }
-      });
-      console.log(res);
-    } catch (e) {
-      console.log(e)
-    }
+        const res = await axios.get("http://localhost:8080/api/movies/best", {
+          params: {
+            n: 10,
+            genre: "Sci-Fi"
+          }
+        });
+        console.log(res.data);
+        // console.log(transformDataForScatterPlot(res.data));
+        setData(transformDataForScatterPlot(res.data));
+      } catch (e) {
+        console.log(e)
+      }
     }
     fetchData();
-  }, [])
+  }, [x,y])
 
   return (
     <div className="scatter-parent">
       <ResponsiveScatterPlot
-        data={sampleScatterData}
+        data={data}
         margin={{ top: 10, right: 40, bottom: 60, left: 60 }}
-        xScale={{ type: "linear", min: 0, max: "auto" }}
-        yScale={{ type: "linear", min: 0, max: "auto" }}
+        xScale={{ type: "linear", min: "auto", max: "auto" }}
+        yScale={{ type: "linear", min: "auto", max: "auto" }}
         blendMode="normal"
         axisBottom={{
           orient: "bottom",

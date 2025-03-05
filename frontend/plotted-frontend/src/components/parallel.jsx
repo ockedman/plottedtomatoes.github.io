@@ -2,7 +2,6 @@ import { ResponsiveParallelCoordinates } from "@nivo/parallel-coordinates";
 
 const ParallelPlot = ({ data }) => {
   return (
-    <>
       <ResponsiveParallelCoordinates
         data={data}
         variables={[
@@ -72,8 +71,42 @@ const ParallelPlot = ({ data }) => {
             ],
           },
         ]}
+        colors={{ scheme: "red_grey" }}
+        theme={{
+                axis: {
+                  domain: {
+                    line: {
+                      stroke: "#ffffff", // Set axis line color to white
+                      strokeWidth: 1,
+                    },
+                  },
+                  ticks: {
+                    line: {
+                      stroke: "#ffffff", // Set tick line color to white
+                      strokeWidth: 1,
+                    },
+                    text: {
+                      fill: "#ffffff", // Set tick text color to white
+                    },
+                  },
+                  legend: {
+                    text: {
+                      fill: "#ffffff", // Set legend text color to white
+                    },
+                  },
+                },
+                legends: {
+                  text: {
+                    fill: "#ffffff", // Set legend text color to white
+                  },
+                },
+                tooltip: {
+                  container: {
+                    color: "#ffaaaa", // Set tooltip text color to white
+                  },
+                },
+              }}
       />
-    </>
   );
 };
 
