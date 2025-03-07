@@ -283,21 +283,14 @@ const LineGraph = ({ y, x }) => {
   const callSpecificPlatformAndGenre = async (x, y) => {
     try {
       // this may have to be several of switch statements for each call, when we add more x / y
-      const res = await axios.get(api_url + "average_across", {
+      const response = await axios.get(api_url + "allaverages_across", {
         params: {
           genre: y,
-          platform: x,
           min_year: 2010,
           max_year: 2023,
         },
       });
-      const finalData = {};
-      Object.keys(res.data).forEach((key, index) => {
-        finalData[key] = {
-          [x] : res.data[key],
-        };
-      });
-      const transData = transformData(finalData);
+      const transData = transformData(response.data);
       const fixedLineData = transData.map(({ id, data }) => ({ id, data }));
       setData(fixedLineData);
     } catch (e) {
@@ -344,7 +337,7 @@ const LineGraph = ({ y, x }) => {
           legendOffset: -40,
           legendPosition: "middle",
         }}
-        colors={{ scheme: "red_grey" }}
+        colors={{ scheme: "spectral" }}
         pointSize={10}
         pointBorderWidth={2}
         pointLabelYOffset={-12}

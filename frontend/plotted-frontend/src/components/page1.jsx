@@ -1,9 +1,10 @@
-import Scatter from "./scatter";
-import Treemap from "./treemap";
 import HeatMap from "./heatmatrix";
 import LineGraph from "./line-graph";
-import axios from "axios";
+import MovieMap from "./movie-map";
 import { useState, useEffect } from "react";
+import Bump from "./bumpchart";
+import SwarmPlot from "./swarmchart";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 const PageOne = () => {
   // api calls to be made here then passed into the components, or create a helper to
@@ -13,12 +14,15 @@ const PageOne = () => {
   const [data, setData] = useState(null);
   const [x, setX] = useState(null);
   const [y, setY] = useState(null);
+  const [lineChartName, setLineChartName] = useState("Overview of Platform Ratings over time")
 
   const handleCellClick = async (cell, event) => {
     const [y, x] = cell.id.split('.')
     // console.log(x)
     setY(y);
     setX(x);
+    y[0].toUpperCase();
+    setLineChartName(y + " Platform Ratings over Time");
   };
 
   return (
@@ -37,13 +41,14 @@ const PageOne = () => {
             </ul>
           </div>
           <div className="line-chart">
-            <h3> Overview </h3>
+            <h3> {lineChartName} </h3>
             <LineGraph y={y} x={x} />
           </div>
         </div>
-        <div className="scatter-plot">
-          <h3 className="scatter-title"> Ratings vs Reviews </h3>
-          <Scatter/>
+        <div className="movie-origins">
+          {/* <h3 className="scatter-title"> Ratings vs Reviews </h3> */}
+          {/* <Scatter/> */}
+          <MovieMap />
         </div>
       </div>
       <div className="right-column">
@@ -65,9 +70,22 @@ const PageOne = () => {
           <div className="heatmap">
             <HeatMap onCellClick={handleCellClick} />
           </div>
-          <div className="treemap">
-            <Treemap />
-          </div>
+          {/* <Tabs>
+            <TabList className="swarmbump-tabs">
+              <Tab>Genre Rankings</Tab>
+              <Tab>Genre Distributions</Tab>
+            </TabList>
+            <TabPanel> */}
+              <div className="bump">
+                <Bump />
+              </div>
+            {/* </TabPanel>
+            <TabPanel>
+              <div className="genre-distributions">
+                <SwarmPlot />
+              </div>
+            </TabPanel>
+          </Tabs> */}
         </div>
       </div>
     </div>

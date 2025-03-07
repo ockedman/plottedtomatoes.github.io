@@ -2,66 +2,81 @@ import { ResponsiveScatterPlot } from "@nivo/scatterplot";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const Scatter = (x, y) => {
-  const [data, setData] = useState([
-    {
-      id: "group A",
-      data: [
-        { x: 10, y: 20 },
-        { x: 25, y: 15 },
-        { x: 40, y: 35 },
-        { x: 65, y: 50 },
-      ],
-    },
-    {
-      id: "group B",
-      data: [
-        { x: 15, y: 30 },
-        { x: 30, y: 10 },
-        { x: 45, y: 45 },
-        { x: 70, y: 60 },
-      ],
-    },
-  ]);
+const Scatter = ({x, y, data}) => {
+  // const [data, setData] = useState([
+  //   {
+  //     id: "group A",
+  //     data: [
+  //       { x: 10, y: 20 },
+  //       { x: 25, y: 15 },
+  //       { x: 40, y: 35 },
+  //       { x: 65, y: 50 },
+  //     ],
+  //   },
+  //   {
+  //     id: "group B",
+  //     data: [
+  //       { x: 15, y: 30 },
+  //       { x: 30, y: 10 },
+  //       { x: 45, y: 45 },
+  //       { x: 70, y: 60 },
+  //     ],
+  //   },
+  // ]);
 
-  const transformDataForScatterPlot = (movies) => {
-    return movies.map(movie => {
-      // Calculate the average rating
-      const averageRating = (movie.rtrating + movie.lbrating + movie.imdbrating + movie.tmdbrating) / 4;
+  // const transformDataForScatterPlot = (movies) => {
+  //   return movies.map(movie => {
+  //     // Calculate the average rating
+  //     const averageRating = (movie.rtrating + movie.lbrating + movie.imdbrating + movie.tmdbrating) / 4;
 
-      // Calculate the total number of ratings
-      const totalRatings = (movie.rtnb + movie.lbnb + movie.imdbnb + movie.tmdbnb) / 1000;
+  //     // Calculate the total number of ratings
+  //     const totalRatings = (movie.rtnb + movie.lbnb + movie.imdbnb + movie.tmdbnb) / 1000;
 
-      return {
-        id: movie.title,
-        data: [
-          {
-            x: totalRatings,
-            y: averageRating
-          }
-        ]
-      };
-    });
-  };
+  //     return {
+  //       id: movie.title,
+  //       data: [
+  //         {
+  //           x: totalRatings,
+  //           y: averageRating
+  //         }
+  //       ]
+  //     };
+  //   });
+  // };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("http://localhost:8080/api/movies/best", {
-          params: {
-            n: 10,
-            genre: "Sci-Fi"
-          }
-        });
-        console.log(res.data);
-        // console.log(transformDataForScatterPlot(res.data));
-        setData(transformDataForScatterPlot(res.data));
-      } catch (e) {
-        console.log(e)
-      }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:8080/api/movies/best", {
+  //         params: {
+  //           n: 10,
+  //         }
+  //       });
+  //       console.log(res.data);
+  //       // console.log(transformDataForScatterPlot(res.data));
+  //       setData(transformDataForScatterPlot(res.data));
+  //     } catch (e) {
+  //       console.log(e)
+  //     }
+  //   }
+  //   fetchData();
+  // }, [x,y])
+  //
+
+  const getNodeSize = (node) => {
+    const minBudget = 0;
+    const maxBudget = 200000000;
+    const minSize = 5;
+    const maxSize = 50;
+
+    if (node.data.size < minBudget) {
+      return minSize;
+    } else if (node.data.size > maxBudget) {
+      return maxSize;
+    } else {
+      return ((node.data.size - minBudget) / (maxBudget - minBudget)) * (maxSize - minSize) + minSize;
     }
-    fetchData();
-  }, [x,y])
+  };
 
   return (
     <div className="scatter-parent">
@@ -90,9 +105,9 @@ const Scatter = (x, y) => {
           legendOffset: -40,
         }}
         colors={{
-          scheme: "red_grey",
+          scheme: "spectral",
         }}
-        nodeSize={10}
+        nodeSize={getNodeSize}
         theme={{
           axis: {
             ticks: {

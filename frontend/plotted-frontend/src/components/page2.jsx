@@ -1,8 +1,9 @@
 import ParallelPlot from "./parallel";
-import LineGraph2 from "./line-graph2";
+import RadarGraph from "./radargraph";
 import { useState, useEffect } from 'react';
 import MovieMap from "./movie-map";
 import axios from "axios";
+import Scatter from "./scatter";
 
 const PageTwo = () => {
   const [parallelData, setParallelData] = useState([
@@ -85,6 +86,22 @@ const PageTwo = () => {
     setSelectedMovies(selectedMovies.filter((m) => m.id !== movie.id));
   };
 
+  const transformToScatterPlotData = (movies) => {
+    let data =  movies.map(movie => ({
+      id: movie.title,
+      data: [
+        {
+          x: (movie.imdbnb + movie.tmdbnb + movie.lbnb + movie.rtnb) / 4,
+          y: (movie.imdbrating + movie.tmdbrating + movie.lbrating + movie.rtrating) / 4,
+          title: movie.title, // Optional: Include the title for tooltips or labels
+          size: movie.budget,
+        }
+      ],
+    }));
+    // console.log(data)
+    return data
+  };
+
   return (
     <div className="content-container">
       <div className="left-column-pg2">
@@ -93,11 +110,11 @@ const PageTwo = () => {
         </div>
         <div className="map-plus-linechart">
           <div className="singular-lineplot">
-            <LineGraph2 />
+            <RadarGraph data={selectedMovies} />
           </div>
-          <div className="movie-origins">
-            {/* <MovieMap /> */}
-            <h3> Other chart goes here...</h3>
+          <div className="scatter-plot">
+            {/* <MovieMap mapData={selectedMovies}/> */}
+            <Scatter data={transformToScatterPlotData(selectedMovies)}/>
           </div>
         </div>
       </div>

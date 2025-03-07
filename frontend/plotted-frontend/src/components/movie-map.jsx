@@ -1,5 +1,5 @@
 import { ResponsiveChoropleth } from '@nivo/geo'
-import features from '../assets/world_countries.json'
+import worldGeoJson from '../assets/world_countries.json'
 
 const MovieMap = ({ mapData }) => {
   const data = [
@@ -693,9 +693,9 @@ const MovieMap = ({ mapData }) => {
   return (
     <ResponsiveChoropleth
             data={data}
-            features={features}
+            features={worldGeoJson.features}
             margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
-            colors="nivo"
+            colors="spectral"
             domain={[ 0, 1000000 ]}
             unknownColor="#666666"
             label="properties.name"
@@ -771,7 +771,7 @@ const MovieMap = ({ mapData }) => {
                     itemWidth: 94,
                     itemHeight: 18,
                     itemDirection: 'left-to-right',
-                    itemTextColor: '#444444',
+                    itemTextColor: '#ffffff',
                     itemOpacity: 0.85,
                     symbolSize: 18,
                     effects: [

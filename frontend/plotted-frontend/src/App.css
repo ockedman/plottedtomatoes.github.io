@@ -164,15 +164,15 @@ body {
   margin-left: 15px;
 }
 
-.scatter-plot {
-  flex: 1; /* Take up remaining space */
-  background-color: #252422;
-  border-radius: 5px;
+.movie-origins {
+  height: 500px;
   width: 100%;
+  background-color: #252422;
+  border-radius: 8px;
 }
 
 .scatter-parent {
-  height: 400px;
+  height: 100%;
   width: 100%;
 }
 
@@ -235,14 +235,36 @@ body {
   height: 500px;
 }
 
-.treemap {
+.bump {
   background-color: #252422;
   border-radius: 5px;
   width: 550px;
+  height: 400px;
+
 }
 
 .treemap-parent {
   height: 350px;
+}
+
+.swarmbump-tabs {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.swarmbump-tabs > div {
+  padding: 5px;
+}
+
+.genre-distributions {
+  background-color: #252422;
+  border-radius: 5px;
+  width: 550px;
+  height: 400px;
 }
 
 /* Page 2 */
@@ -361,14 +383,14 @@ body {
 
 .singular-lineplot {
   height: 500px;
-  width: 100%;
+  width: 40%;
   background-color: #252422;
   border-radius: 8px;
 }
 
-.movie-origins {
+.scatter-plot {
   height: 500px;
-  width: 100%;
+  width: 60%;
   background-color: #252422;
   border-radius: 8px;
 }

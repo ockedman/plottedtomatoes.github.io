@@ -230,7 +230,7 @@ const HeatMap = ({ onCellClick }) => {
         colors={{
           type: "diverging",
           // scheme: "red_yellow_green",
-          scheme: "red_grey",
+          scheme: "spectral",
           divergeAt: 0.5,
           minValue: 5,
           maxValue: 7.2,
@@ -255,6 +255,24 @@ const HeatMap = ({ onCellClick }) => {
           },
         ]}
         theme={{
+          legends: {
+            title: {
+              text : {
+                fontSize: 12,
+                fill: "rgba(255, 252, 242, 0.85)",
+              }
+            },
+            text: {
+              fontSize: 12,
+              fill: "rgba(255, 252, 242, 0.85)", // Softer white for legend labels
+            },
+            ticks: {
+              text : {
+                fontSize: 12,
+                fill: "rgba(255, 252, 242, 0.85)",
+              }
+            }
+          },
           axis: {
             ticks: {
               text: {
@@ -265,7 +283,7 @@ const HeatMap = ({ onCellClick }) => {
             legend: {
               text: {
                 fontSize: 14,
-                fill: "rgba(255, 252, 242, 0.9)", // Softer white for axis legends
+                fill: "#ffffff", // Softer white for axis legends
               },
             },
           },
@@ -273,12 +291,6 @@ const HeatMap = ({ onCellClick }) => {
             text: {
               fontSize: 12,
               fill: "rgba(255, 252, 242, 0.85)", // Softer white for cell labels
-            },
-          },
-          legends: {
-            text: {
-              fontSize: 12,
-              fill: "rgba(255, 252, 242, 0.85)", // Softer white for legend labels
             },
           },
           tooltip: {

@@ -87,7 +87,7 @@ const ParallelPlot = ({ data }) => {
                 },
               ]}
         margin={{ top: 50, right: 120, bottom: 50, left: 60 }}
-        lineWidth={3}
+        lineWidth={4}
         legends={[
           {
             anchor: "right",
