@@ -2,7 +2,7 @@ import { ResponsiveHeatMap } from "@nivo/heatmap";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const HeatMap = ({ onCellClick }) => {
+const HeatMap = ({ onCellClick, minYear, maxYear }) => {
   const [matrixData, setMatrixData] = useState([
       {
           "id": "Action",
@@ -164,6 +164,8 @@ const HeatMap = ({ onCellClick }) => {
           let res = await axios.get("http://localhost:8080/api/movies/allaverages", {
             params: {
               genre: genres[i],
+              // min_year: minYear,
+              // max_year: maxYear,
             }
           })
           data.push(res.data);
@@ -188,7 +190,7 @@ const HeatMap = ({ onCellClick }) => {
       // console.log(data);
     }
     fetchData();
-  }, []);
+  }, [minYear, maxYear]);
 
 
 

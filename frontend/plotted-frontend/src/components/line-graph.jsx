@@ -2,7 +2,7 @@ import { ResponsiveLine } from "@nivo/line";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const LineGraph = ({ y, x }) => {
+const LineGraph = ({ y, x, type }) => {
   const [data, setData] = useState([
       {
           "id": "IMDB",
@@ -249,7 +249,19 @@ const LineGraph = ({ y, x }) => {
           ]
       }
   ]);
+  const [minYear, setMinYear] = useState(2015);
+  const [maxYear, setMaxYear] = useState(2020);
   const api_url = "http://localhost:8080/api/movies/";
+
+  const handleMinYearChange = (e) => {
+      setMinYear(parseInt(e.target.value, 10));
+    };
+
+    const handleMaxYearChange = (e) => {
+      setMaxYear(parseInt(e.target.value, 10));
+    };
+
+  //default case calls
   const transformData = (originalData) => {
     const series = ["IMDB", "TMDB", "RT", "LB"];
     return series.map((serie) => ({
@@ -269,8 +281,9 @@ const LineGraph = ({ y, x }) => {
     try {
       const response = await axios.get(api_url + "allaverages_across", {
         params: {
-          min_year: 2010,
-          max_year: 2023,            },
+          min_year: minYear,
+          max_year: maxYear,
+        },
       });
       const transData = transformData(response.data);
       const fixedLineData = transData.map(({ id, data }) => ({ id, data }));
@@ -280,17 +293,33 @@ const LineGraph = ({ y, x }) => {
     }
   };
 
+  const transformSpecificGenrePlatData = (originalData, platform) => {
+      return [
+        {
+          id: platform,
+          data: Object.keys(originalData).map((year) => {
+            const value = originalData[year];
+            if (value === undefined || isNaN(value)) {
+              return null;
+            }
+            return { x: String(year), y: value }; // Ensure x is a string
+          }).filter(point => point !== null), // Remove invalid points
+        }
+      ];
+    };
+
   const callSpecificPlatformAndGenre = async (x, y) => {
     try {
       // this may have to be several of switch statements for each call, when we add more x / y
-      const response = await axios.get(api_url + "allaverages_across", {
+      const response = await axios.get(api_url + "average_across", {
         params: {
           genre: y,
-          min_year: 2010,
-          max_year: 2023,
+          platform: x,
+          min_year: minYear,
+          max_year: maxYear,
         },
       });
-      const transData = transformData(response.data);
+      const transData = transformSpecificGenrePlatData(response.data, x);
       const fixedLineData = transData.map(({ id, data }) => ({ id, data }));
       setData(fixedLineData);
     } catch (e) {
@@ -298,15 +327,94 @@ const LineGraph = ({ y, x }) => {
     }
   };
 
-  useEffect(() => {
-      if (x != null && y != null) {
-        callSpecificPlatformAndGenre(x, y);
-      } else {
-        fetchData();
+  // Genre case calls
+  const genres = ["Action", "Comedy", "Drama", "Horror", "Romance", "Sci-Fi", "History"];
+  const transformGenreData = (data) => {
+    const years = Object.keys(data[0]);
+    const genre = data.map((genre, index) => ({
+      id: genres[index],
+      data: years.map((year) => {
+        const average =
+          (genre[year].IMDB + genre[year].TMDB + genre[year].RT + genre[year].LB) / 4;
+        return { x: year, y: average };
+      }),
+    }));
+    return genre;
+    };
+
+  const fetchGenreData = async () => {
+    let data = [];
+    for (let i = 0; i < genres.length; i++) {
+      try {
+        let res = await axios.get("http://localhost:8080/api/movies/allaverages_across", {
+          params: {
+            genre: genres[i],
+            min_year: minYear,
+            max_year: maxYear,
+          }
+        })
+        data.push(res.data);
+      } catch (e) {
+        console.log(e);
       }
-    }, [x,y]);
+    }
+    setData(transformGenreData(data));
+  };
+
+  // Rating case calls
+  const age_ratings = ['G', 'PG', 'PG13', 'R', 'NC17'];
+  const transformRatingData = (data) => {
+    const years = Object.keys(data[0]);
+    const genre = data.map((genre, index) => ({
+      id: genres[index],
+      data: years.map((year) => {
+        const average =
+          (genre[year].IMDB + genre[year].TMDB + genre[year].RT + genre[year].LB) / 4;
+        return { x: year, y: average };
+      }),
+    }));
+    return genre;
+  };
+
+  const fetchRatingData = async () => {
+    let data = [];
+    for (let i = 0; i < age_ratings.length; i++) {
+      try {
+        let res = await axios.get("http://localhost:8080/api/movies/allaverages_across", {
+          params: {
+            rating: age_ratings[i],
+            min_year: minYear,
+            max_year: maxYear,
+          }
+        })
+        data.push(res.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    console.log(data);
+  };
+
+  useEffect(() => {
+    switch (type) {
+      case "Genre":
+        fetchGenreData();
+        break;
+      case "Rating":
+        fetchRatingData();
+        break;
+      default:
+        if (x != null && y != null) {
+          callSpecificPlatformAndGenre(x, y);
+        } else {
+          fetchData();
+        }
+        break;
+    }
+    }, [x,y,type, minYear, maxYear]);
 
   return (
+    <div className="linegraph_withoptions">
     <div className="line-graph-parent">
       <ResponsiveLine
         data={data}
@@ -368,6 +476,29 @@ const LineGraph = ({ y, x }) => {
           },
         }}
       />
+    </div>
+      <div className="input-container">
+              <div className="input-box">
+                <label>Min Year: </label>
+                <input
+                  type="number"
+                  value={minYear}
+                  onChange={handleMinYearChange}
+                  min="2003"
+                  max="2023"
+                />
+              </div>
+              <div className="input-box">
+                <label>Max Year: </label>
+                <input
+                  type="number"
+                  value={maxYear}
+                  onChange={handleMaxYearChange}
+                  min="2003"
+                  max="2023"
+                />
+              </div>
+            </div>
     </div>
   );
 };

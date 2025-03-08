@@ -9,7 +9,7 @@ const Bump = () => {
     let data = [];
     for (let i = 0; i < genres.length; i++) {
       let curr_data = [];
-      for (let j = 2023 - genres.length; j < 2023; j++) { // Adjusted to fetch data for 7 years
+      for (let j = 2024 - genres.length; j < 2024; j++) { // Adjusted to fetch data for 7 years
         try {
           let res = await axios.get("http://localhost:8080/api/movies/allaverages", {
             params: {

@@ -153,11 +153,20 @@ body {
   background-color: #252422;
   padding: 5px;
   border-radius: 5px;
-  width: 400px;
+}
+
+.linegraph_withoptions {
+  height: 550px;
+}
+
+.input-container {
+  display: flex;
+  height: 50px;
+  justify-content: space-evenly;
 }
 
 .line-graph-parent {
-  height: 400px;
+  height: 500px;
 }
 
 .scatter-title {
