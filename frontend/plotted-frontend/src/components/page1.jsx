@@ -44,7 +44,7 @@ const PageOne = () => {
                   key={index}
                   onClick={() => selectItem(item)}
                   style={{
-                    backgroundColor: selectedItem === item ? 'orange' : 'white',
+                    backgroundColor: selectedItem === item ? '#eb5e28' : 'white',
                     color: selectedItem === item ? 'white' : 'black',
                     padding: '4px 10px',
                     cursor: 'pointer',
@@ -56,12 +56,12 @@ const PageOne = () => {
               ))}
             </ul>
           </div>
-          <div className="line-chart">
+          <div className="line-chart border-background-change">
             <h3> {lineChartName} </h3>
             <LineGraph y={y} x={x} type={selectedItem}  />
           </div>
         </div>
-        <div className="movie-origins">
+        <div className="movie-origins border-background-change">
           {/* <h3 className="scatter-title"> Ratings vs Reviews </h3> */}
           {/* <Scatter/> */}
           {/* <MovieMap /> */}
@@ -87,7 +87,7 @@ const PageOne = () => {
             <h3 style={{
               color: 'black'
             }}> Click on a Cell to view the transformation over time!</h3>
-          <div className="heatmap">
+          <div className="heatmap border-background-change">
             <HeatMap onCellClick={handleCellClick} />
           </div>
           {/* <Tabs>
@@ -96,7 +96,7 @@ const PageOne = () => {
               <Tab>Genre Distributions</Tab>
             </TabList>
             <TabPanel> */}
-              <div className="bump">
+              <div className="bump border-background-change">
                 <Bump />
               </div>
             {/* </TabPanel>
