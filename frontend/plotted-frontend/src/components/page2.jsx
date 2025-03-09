@@ -91,8 +91,8 @@ const PageTwo = () => {
       id: movie.title,
       data: [
         {
-          x: (movie.imdbnb + movie.tmdbnb + movie.lbnb + movie.rtnb) / 4,
-          y: (movie.imdbrating + movie.tmdbrating + movie.lbrating + movie.rtrating) / 4,
+          x: parseFloat((movie.imdbnb + movie.tmdbnb + movie.lbnb + movie.rtnb) / 4000).toFixed(2),
+          y: parseFloat((movie.imdbrating + movie.tmdbrating + movie.lbrating + movie.rtrating) / 4).toFixed(2),
           title: movie.title, // Optional: Include the title for tooltips or labels
           size: movie.budget,
         }

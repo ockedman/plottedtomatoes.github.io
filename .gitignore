@@ -9,3 +9,7 @@ __pycache__/
 
 # API key
 token.json
+
+# Test stuff
+test/
+test*
