@@ -1,4 +1,3 @@
-html,
 body {
   margin: 0;
   padding: 0;
@@ -6,6 +5,7 @@ body {
   color: #fffcf2; /* off-white text */
   font-family: "Arial", sans-serif;
   height: 150vh;
+  width: 100%;
 }
 
 #root {
@@ -76,7 +76,7 @@ body {
 .react-tabs__tab:hover {
   opacity: 0.8;
   background-color: #b3a89e;
-  border-color: #eb5e28;
+  border-color: var(--orange);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
   opacity: 0.9;
 }
@@ -109,11 +109,11 @@ body {
 .left-column {
   display: flex;
   flex-direction: column;
-  width: 55%; /* Adjust width as needed */
-  background-color: #ccc5b9;
-  border-radius: 5px;
+  width: 58%; /* Adjust width as needed */
+  background-color: #252422;
+  border-radius: 10px;
   align-items: center;
-  padding: 10px;
+  padding: 10px 5px 10px 0px;
   gap: 10px;
   height: fit-content;
 }
@@ -126,9 +126,11 @@ body {
 }
 
 .selection-criteria {
-  padding: 1rem;
-  border-radius: 5px;
-  color: #fffcf2;
+  display: flex;
+}
+.border-background-change {
+  border-radius: 10px;
+  background-color: #403d39;
 }
 
 .left-list {
@@ -139,20 +141,18 @@ body {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  background-color: #252422;
-  border-radius: 6px;
+  background-color: #403d39;
+  border-radius: 10px;
 }
 
 .left-list > li {
-  border-radius: 6px;
+  border-radius: 15px;
   padding: 4px 10px;
 }
 
 .line-chart {
   flex: 1; /* Take up remaining space */
-  background-color: #252422;
   padding: 5px;
-  border-radius: 5px;
 }
 
 .linegraph_withoptions {
@@ -176,8 +176,6 @@ body {
 .movie-origins {
   height: 500px;
   width: 100%;
-  background-color: #252422;
-  border-radius: 8px;
 }
 
 .scatter-parent {
@@ -224,17 +222,15 @@ body {
 .scrollable-content {
   flex: 1; /* Take up remaining space */
   overflow-y: auto; /* Allow vertical scrolling */
-  background-color: #ccc5b9;
+  background-color: #252422;
   /* background-color: #252422; */
-  padding: 1rem;
+  padding: 0.8rem;
   border-radius: 5px;
 }
 
 .heatmap {
   height: 400px; /* Adjust height as needed */
-  background-color: #252422;
   margin-bottom: 1rem;
-  border-radius: 5px;
   padding: 5px;
   width: 550px;
   height: 500px;
@@ -245,8 +241,6 @@ body {
 }
 
 .bump {
-  background-color: #252422;
-  border-radius: 5px;
   width: 550px;
   height: 400px;
 
@@ -326,9 +320,7 @@ body {
   width: 85%;
 }
 
-.movie-list {
 
-}
 
 .search-container {
   display: flex;
