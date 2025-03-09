@@ -7,16 +7,19 @@ def create_json(data):
         "data": data
     }
 
-def create_movie_entry(movie_id, title, studios, release_year, release_date, budget, revenue, genres, runtime):
+def create_movie_entry(movie_id, title, directors, studios, release_year, release_date, budget, revenue, genres, countries, language, runtime):
     return {
         "movieId": movie_id,
         "title": title,
+        "directors": directors,
         "studios": studios,
         "releaseYear": release_year,
         "releaseDate": release_date,
         "budget": budget,
         "revenue": revenue,
         "genres": genres,
+        "productionCountries": countries,
+        "originalLanguage": language,
         "runtime": runtime,
         "rottenTomatoesScore": None,
         "imdbScore": None,
@@ -44,12 +47,15 @@ def preprocess(lite=False):
         movie = create_movie_entry(
             movie_data['imdbId'],
             title,
+            str(movie_data['directors']).split(","),
             str(movie_data['studios']).split(","),
             year,
             movie_data['releaseDateTheaters'],
             int(movie_data["budget"]),
             int(movie_data["revenue"]),
             str(movie_data['genres']).split(","),
+            str(movie_data['productionCountries']).split(","),
+            movie_data['originalLanguage'],
             movie_data['runtimeMinutes']
         )
         
@@ -100,7 +106,6 @@ def preprocess(lite=False):
         
 def main():
     preprocess()
-    preprocess(lite=True)
 
 if __name__ == "__main__":
     main()
