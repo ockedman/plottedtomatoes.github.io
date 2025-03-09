@@ -84,6 +84,9 @@ const PageOne = () => {
           </ul>
         </div> */}
         <div className="scrollable-content">
+            <h3 style={{
+              color: 'black'
+            }}> Click on a Cell to view the transformation over time!</h3>
           <div className="heatmap">
             <HeatMap onCellClick={handleCellClick} />
           </div>

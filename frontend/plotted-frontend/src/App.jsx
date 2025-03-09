@@ -13,8 +13,8 @@ function App() {
             <img src={logoImage} alt="Icon" className="icon-image" />
           </div>
           <TabList className="tablist">
-            <Tab>Movies</Tab>
-            <Tab>Platforms</Tab>
+            <Tab>Movie Comparisons</Tab>
+            <Tab>General Comparisons</Tab>
           </TabList>
         </aside>
 
