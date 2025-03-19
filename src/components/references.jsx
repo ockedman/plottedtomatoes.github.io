@@ -84,7 +84,8 @@ const referncesPage = () => {
         <div>
           <h4>Yuchen</h4>
           <ul>
-            <li>Helping esthetically the frontend design</li>
+            <li>Assisted in the UI Structure with Figma</li>
+            <li>Esthetically improved on the Frontend</li>
             <li>Assisted with Viz Design</li>
           </ul>
         </div>
