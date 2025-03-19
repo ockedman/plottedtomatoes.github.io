@@ -71,7 +71,7 @@ const RadarGraph = ({ data }) => {
       enableDotLabel={true}
       dotLabel="value"
       dotLabelYOffset={-12}
-      colors={{ scheme: 'spectral' }}
+      // colors={{ scheme: 'spectral' }}
       fillOpacity={0.25}
       blendMode="multiply"
       animate={true}

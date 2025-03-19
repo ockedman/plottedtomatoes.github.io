@@ -232,7 +232,7 @@ const HeatMap = ({ onCellClick, minYear, maxYear }) => {
         colors={{
           type: "diverging",
           // scheme: "red_yellow_green",
-          scheme: "spectral",
+          // scheme: "spectral",
           divergeAt: 0.5,
           minValue: 5,
           maxValue: 7.2,

@@ -72,7 +72,7 @@ const Bump = () => {
   return (
     <ResponsiveBump
             data={data}
-            colors={{ scheme: 'spectral' }}
+            // colors={{ scheme: 'spectral' }}
             lineWidth={3}
             activeLineWidth={6}
             inactiveLineWidth={3}
