@@ -5,7 +5,7 @@ const referncesPage = () => {
     <>
       <h2>Additional Info</h2>
       <div>
-        <h3>Refernces and Citations</h3>
+        <h3>References and Citations</h3>
         <div style={{
           display: "flex",
           justifyContent: "space-around"
@@ -39,7 +39,15 @@ const referncesPage = () => {
           }}>
             <h4>Data Processing</h4>
             <ul>
-              <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the.</li>
+              <li>Pandas. (n.d.) https://pandas.pydata.org/docs/index.html</li>
+              <li>Stack Overflow. (n.d.) https://stackoverflow.com/</li>
+              <li>TMDb API. (n.d.) https://developer.themoviedb.org/docs/getting-started</li>
+              <li>IMDb Datasets. (n.d.) https://developer.imdb.com/non-commercial-datasets/</li>
+              <li>Letterboxd. (n.d.) https://letterboxd.com/</li>
+              <li>Rotten Tomatoes. (n.d.) https://www.rottentomatoes.com/</li>
+              <li>Rotten Tomatoes Dataset. (n.d.) https://www.kaggle.com/datasets/andrezaza/clapper-massive-rotten-tomatoes-movies-and-reviews/data</li>
+              <li>Reddit. (n.d.) https://www.reddit.com/r/Letterboxd/comments/16u4vky/tip_you_can_find_a_movie_on_letterboxd_via_its/
+              </li>
             </ul>
           </div>
         </div>
@@ -65,7 +73,8 @@ const referncesPage = () => {
         <div>
           <h4>Daniel</h4>
           <ul>
-            <li>..put work here..</li>
+            <li>Data Fetching using APIs and different Datasets</li>
+            <li>Data Processing and Cleaning for the Backend</li>
           </ul>
         </div>
         <div>
