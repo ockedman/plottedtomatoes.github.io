@@ -2,80 +2,155 @@ import { ResponsiveHeatMap } from "@nivo/heatmap";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const HeatMap = ({ onCellClick }) => {
+const HeatMap = ({ onCellClick, minYear, maxYear }) => {
   const [matrixData, setMatrixData] = useState([
-    {
-      id: "Action",
-      data: [
-        { x: "IMDb", y: -60215 },
-        { x: "RottenTomatoes", y: 41691 },
-        { x: "Metacritic", y: 9128 },
-        { x: "Letterboxd", y: -35060 },
-      ],
-    },
-    {
-      id: "Comedy",
-      data: [
-        { x: "IMDb", y: 2187 },
-        { x: "RottenTomatoes", y: 56071 },
-        { x: "Metacritic", y: -37631 },
-        { x: "Letterboxd", y: 87241 },
-      ],
-    },
-    {
-      id: "Drama",
-      data: [
-        { x: "IMDb", y: 87592 },
-        { x: "RottenTomatoes", y: -66951 },
-        { x: "Metacritic", y: 11467 },
-        { x: "Letterboxd", y: 0 },
-      ],
-    },
-    {
-      id: "Horror",
-      data: [
-        { x: "IMDb", y: -27520 },
-        { x: "RottenTomatoes", y: 12598 },
-        { x: "Metacritic", y: 80915 },
-        { x: "Letterboxd", y: -50018 },
-      ],
-    },
-    {
-      id: "Romance",
-      data: [
-        { x: "IMDb", y: -78155 },
-        { x: "RottenTomatoes", y: 27830 },
-        { x: "Metacritic", y: 46110 },
-        { x: "Letterboxd", y: 9382 },
-      ],
-    },
-    {
-      id: "Sci-Fi",
-      data: [
-        { x: "IMDb", y: 34413 },
-        { x: "RottenTomatoes", y: 99388 },
-        { x: "Metacritic", y: 47101 },
-        { x: "Letterboxd", y: -53809 },
-      ],
-    },
-    {
-      id: "Documentary",
-      data: [
-        { x: "IMDb", y: -30650 },
-        { x: "RottenTomatoes", y: 58100 },
-        { x: "Metacritic", y: 91789 },
-        { x: "Letterboxd", y: -44039 },
-      ],
-    },
-    {
-      id: "Mystery",
-      data: [
-        { x: "IMDb", y: -44844 },
-        { x: "RottenTomatoes", y: 56824 },
-        { x: "Metacritic", y: -85571 },
-        { x: "Letterboxd", y: 7639 },
-      ],
-    },
+      {
+          "id": "Action",
+          "data": [
+              {
+                  "x": "IMDB",
+                  "y": 6.2814652014652035
+              },
+              {
+                  "x": "TMDB",
+                  "y": 6.373298901098904
+              },
+              {
+                  "x": "RT",
+                  "y": 5.970256410256412
+              },
+              {
+                  "x": "LB",
+                  "y": 6.2814652014652035
+              }
+          ]
+      },
+      {
+          "id": "Comedy",
+          "data": [
+              {
+                  "x": "IMDB",
+                  "y": 6.269981060606061
+              },
+              {
+                  "x": "TMDB",
+                  "y": 6.311932291666672
+              },
+              {
+                  "x": "RT",
+                  "y": 6.115861742424228
+              },
+              {
+                  "x": "LB",
+                  "y": 6.269981060606061
+              }
+          ]
+      },
+      {
+          "id": "Drama",
+          "data": [
+              {
+                  "x": "IMDB",
+                  "y": 6.775357873210643
+              },
+              {
+                  "x": "TMDB",
+                  "y": 6.708495228357209
+              },
+              {
+                  "x": "RT",
+                  "y": 6.841104294478506
+              },
+              {
+                  "x": "LB",
+                  "y": 6.775357873210643
+              }
+          ]
+      },
+      {
+          "id": "Horror",
+          "data": [
+              {
+                  "x": "IMDB",
+                  "y": 5.933553719008268
+              },
+              {
+                  "x": "TMDB",
+                  "y": 6.129841322314051
+              },
+              {
+                  "x": "RT",
+                  "y": 5.226611570247928
+              },
+              {
+                  "x": "LB",
+                  "y": 5.933553719008268
+              }
+          ]
+      },
+      {
+          "id": "Romance",
+          "data": [
+              {
+                  "x": "IMDB",
+                  "y": 6.486666666666659
+              },
+              {
+                  "x": "TMDB",
+                  "y": 6.484063681592046
+              },
+              {
+                  "x": "RT",
+                  "y": 6.402089552238811
+              },
+              {
+                  "x": "LB",
+                  "y": 6.486666666666659
+              }
+          ]
+      },
+      {
+          "id": "Sci-Fi",
+          "data": [
+              {
+                  "x": "IMDB",
+                  "y": 6.374477958236661
+              },
+              {
+                  "x": "TMDB",
+                  "y": 6.404048723897915
+              },
+              {
+                  "x": "RT",
+                  "y": 5.850116009280749
+              },
+              {
+                  "x": "LB",
+                  "y": 6.374477958236661
+              }
+          ]
+      },
+      {
+          "id": "History",
+          "data": [
+              {
+                  "x": "IMDB",
+                  "y": 6.924623115577888
+              },
+              {
+                  "x": "TMDB",
+                  "y": 6.802326633165825
+              },
+              {
+                  "x": "RT",
+                  "y": 7.24824120603015
+              },
+              {
+                  "x": "LB",
+                  "y": 6.924623115577888
+              }
+          ]
+      }
   ])
 
   useEffect(() => {
@@ -89,6 +164,8 @@ const HeatMap = ({ onCellClick }) => {
           let res = await axios.get("http://localhost:8080/api/movies/allaverages", {
             params: {
               genre: genres[i],
+              // min_year: minYear,
+              // max_year: maxYear,
             }
           })
           data.push(res.data);
@@ -110,10 +187,10 @@ const HeatMap = ({ onCellClick }) => {
     const fetchData = async () => {
       const data = await retrieveMatrixData();
       setMatrixData(data);
-      console.log(data);
+      // console.log(data);
     }
     fetchData();
-  }, []);
+  }, [minYear, maxYear]);
 
 
 
@@ -138,7 +215,7 @@ const HeatMap = ({ onCellClick }) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "country",
+          legend: "genre",
           legendPosition: "middle",
           legendOffset: 70,
           truncateTickAt: 0,
@@ -147,7 +224,7 @@ const HeatMap = ({ onCellClick }) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "country",
+          legend: "genre",
           legendPosition: "middle",
           legendOffset: -72,
           truncateTickAt: 0,
@@ -155,7 +232,7 @@ const HeatMap = ({ onCellClick }) => {
         colors={{
           type: "diverging",
           // scheme: "red_yellow_green",
-          scheme: "red_grey",
+          scheme: "spectral",
           divergeAt: 0.5,
           minValue: 5,
           maxValue: 7.2,
@@ -180,6 +257,24 @@ const HeatMap = ({ onCellClick }) => {
           },
         ]}
         theme={{
+          legends: {
+            title: {
+              text : {
+                fontSize: 12,
+                fill: "rgba(255, 252, 242, 0.85)",
+              }
+            },
+            text: {
+              fontSize: 12,
+              fill: "rgba(255, 252, 242, 0.85)", // Softer white for legend labels
+            },
+            ticks: {
+              text : {
+                fontSize: 12,
+                fill: "rgba(255, 252, 242, 0.85)",
+              }
+            }
+          },
           axis: {
             ticks: {
               text: {
@@ -190,7 +285,7 @@ const HeatMap = ({ onCellClick }) => {
             legend: {
               text: {
                 fontSize: 14,
-                fill: "rgba(255, 252, 242, 0.9)", // Softer white for axis legends
+                fill: "#ffffff", // Softer white for axis legends
               },
             },
           },
@@ -198,12 +293,6 @@ const HeatMap = ({ onCellClick }) => {
             text: {
               fontSize: 12,
               fill: "rgba(255, 252, 242, 0.85)", // Softer white for cell labels
-            },
-          },
-          legends: {
-            text: {
-              fontSize: 12,
-              fill: "rgba(255, 252, 242, 0.85)", // Softer white for legend labels
             },
           },
           tooltip: {

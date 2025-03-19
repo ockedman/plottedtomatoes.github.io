@@ -1,34 +1,31 @@
 import { ResponsiveScatterPlot } from "@nivo/scatterplot";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const Scatter = ({ data }) => {
-  const sampleScatterData = [
-    {
-      id: "group A",
-      data: [
-        { x: 10, y: 20 },
-        { x: 25, y: 15 },
-        { x: 40, y: 35 },
-        { x: 65, y: 50 },
-      ],
-    },
-    {
-      id: "group B",
-      data: [
-        { x: 15, y: 30 },
-        { x: 30, y: 10 },
-        { x: 45, y: 45 },
-        { x: 70, y: 60 },
-      ],
-    },
-  ];
+const Scatter = ({x, y, data}) => {
+
+  const getNodeSize = (node) => {
+    const minBudget = 0;
+    const maxBudget = 200000000;
+    const minSize = 10;
+    const maxSize = 40;
+
+    if (node.data.size < minBudget) {
+      return minSize;
+    } else if (node.data.size > maxBudget) {
+      return maxSize;
+    } else {
+      return ((node.data.size - minBudget) / (maxBudget - minBudget)) * (maxSize - minSize) + minSize;
+    }
+  };
 
   return (
     <div className="scatter-parent">
       <ResponsiveScatterPlot
-        data={sampleScatterData}
+        data={data}
         margin={{ top: 10, right: 40, bottom: 60, left: 60 }}
-        xScale={{ type: "linear", min: 0, max: "auto" }}
-        yScale={{ type: "linear", min: 0, max: "auto" }}
+        xScale={{ type: "linear", min: "auto", max: "auto" }}
+        yScale={{ type: "linear", min: "auto", max: "auto" }}
         blendMode="normal"
         axisBottom={{
           orient: "bottom",
@@ -49,9 +46,9 @@ const Scatter = ({ data }) => {
           legendOffset: -40,
         }}
         colors={{
-          scheme: "red_grey",
+          scheme: "spectral",
         }}
-        nodeSize={10}
+        nodeSize={getNodeSize}
         theme={{
           axis: {
             ticks: {
