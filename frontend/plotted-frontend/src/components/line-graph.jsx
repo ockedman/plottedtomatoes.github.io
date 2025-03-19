@@ -445,7 +445,7 @@ const LineGraph = ({ y, x, type }) => {
           legendOffset: -40,
           legendPosition: "middle",
         }}
-        colors={{ scheme: "spectral" }}
+        colors={{ scheme: "nivo" }}
         pointSize={10}
         pointBorderWidth={2}
         pointLabelYOffset={-12}

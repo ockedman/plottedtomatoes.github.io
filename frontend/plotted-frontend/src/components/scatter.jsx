@@ -46,7 +46,7 @@ const Scatter = ({x, y, data}) => {
           legendOffset: -40,
         }}
         colors={{
-          scheme: "spectral",
+          scheme: "nivo",
         }}
         nodeSize={getNodeSize}
         theme={{

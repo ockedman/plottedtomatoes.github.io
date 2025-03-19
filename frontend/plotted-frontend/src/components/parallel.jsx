@@ -111,7 +111,7 @@ const ParallelPlot = ({ data }) => {
             ],
           },
         ]}
-        colors={{ scheme: "red_grey" }}
+        colors={{ scheme: "nivo" }}
         theme={{
                 axis: {
                   domain: {

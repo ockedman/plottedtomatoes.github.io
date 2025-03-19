@@ -27,20 +27,20 @@ body {
   position: fixed; /* Fixed to the left side of the window */
   top: 0;
   left: 0;
-  height: 100vh; /* Full viewport height */
-  width: 80px; /* Adjust width as needed */
+  height: 100vh;
+  width: 80px;
   background-color: #403d39;
   display: flex;
   flex-direction: column;
-  justify-content: start; /* Start stacking from the top */
-  align-items: center; /* Center items horizontally */
+  justify-content: start; /* start stacking from the top */
+  align-items: center; /* center items horizontally */
   padding: 1rem 0;
-  border-radius: 0; /* Remove border-radius */
+  border-radius: 0;
 }
 
 /* Top-left icon */
 .top-left-icon {
-  margin-bottom: 2rem; /* Space below the icon */
+  margin-bottom: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,14 +57,12 @@ body {
   height: 80vh;
   list-style: none;
   display: flex;
-  jflex-grow: 1; /* Allow the tablist to grow and fill the remaining space */
+  jflex-grow: 1;
   justify-content: space-evenly;
-  gap: 1rem; /* space between tabs */
+  gap: 1rem;
   writing-mode: sideways-lr;
 }
 
-/* Each tab button fills the full width of the sidebar,
-   with some padding and spacing. */
 .react-tabs__tab {
   cursor: pointer;
   padding: 40px 10px;
@@ -99,17 +97,15 @@ body {
 .content-container {
   display: flex;
   flex-direction: row;
-  height: 150vh; /* Full viewport height */
+  height: 150vh;
   gap: 10px;
 }
 
-/* --------------------------------------------
-   LEFT COLUMN
----------------------------------------------*/
+/* LEFT COLUMN */
 .left-column {
   display: flex;
   flex-direction: column;
-  width: 58%; /* Adjust width as needed */
+  width: 58%;
   background-color: #252422;
   border-radius: 10px;
   align-items: center;
@@ -151,7 +147,7 @@ body {
 }
 
 .line-chart {
-  flex: 1; /* Take up remaining space */
+  flex: 1;
   padding: 5px;
 }
 
@@ -183,13 +179,11 @@ body {
   width: 100%;
 }
 
-/* --------------------------------------------
-   RIGHT COLUMN
----------------------------------------------*/
+/* right-column */
 .right-column {
   display: flex;
   flex-direction: column;
-  width: 45%; /* Adjust width as needed */
+  width: 45%;
   gap: 1rem;
   height: fit-content;
 }
@@ -220,16 +214,15 @@ body {
 }
 
 .scrollable-content {
-  flex: 1; /* Take up remaining space */
-  overflow-y: auto; /* Allow vertical scrolling */
+  flex: 1;
+  overflow-y: auto;
   background-color: #252422;
-  /* background-color: #252422; */
   padding: 0.8rem;
   border-radius: 5px;
 }
 
 .heatmap {
-  height: 400px; /* Adjust height as needed */
+  height: 400px;
   margin-bottom: 1rem;
   padding: 5px;
   width: 550px;
@@ -274,7 +267,7 @@ body {
 .left-column-pg2 {
   display: flex;
   flex-direction: column;
-  width: 70%; /* Adjust width as needed */
+  width: 70%;
   background-color: #ccc5b9;
   border-radius: 5px;
   align-items: center;
@@ -287,7 +280,7 @@ body {
   display: flex;
   background-color: #ccc5b9;
   flex-direction: column;
-  width: 30%; /* Adjust width as needed */
+  width: 30%;
   gap: 1rem;
   padding: 10px;
   gap: 10px;
