@@ -31,7 +31,9 @@ const referncesPage = () => {
           }}>
             <h4>Backend</h4>
             <ul>
-              <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the.</li>
+              <li>Backend Developping (n.d.) https://roadmap.sh/backend</li>
+              <li>SpringBoot JPA (n.d.) https://spring.io/guides/gs/accessing-data-jpa</li>
+              <li>JPA Repositories (n.d.) https://www.baeldung.com/the-persistence-layer-with-spring-and-jpa</li>
             </ul>
           </div>
           <div style={{
@@ -61,13 +63,15 @@ const referncesPage = () => {
           <h4>Titan</h4>
           <ul>
             <li>Entire Frontend</li>
-            <li>Assisted with viz Design</li>
+            <li>Assisted with Viz Design</li>
           </ul>
         </div>
         <div>
           <h4>Adam</h4>
           <ul>
-            <li>..put work here..</li>
+            <li>Entire Frontend</li>
+            <li>UI Structure</li>
+            <li>Assisted with Viz Design</li>
           </ul>
         </div>
         <div>
@@ -80,28 +84,48 @@ const referncesPage = () => {
         <div>
           <h4>Yuchen</h4>
           <ul>
-            <li>..put work here..</li>
+            <li>Helping esthetically the frontend design</li>
+            <li>Assisted with Viz Design</li>
           </ul>
         </div>
       </div>
-      <h3>Task Abstraction</h3>
-      <div>
-      <p>....Put the task abstraction of the data here....</p>
-      </div>
       <h3>Data Abstraction and Provenance</h3>
       <div>
-      <p>....Put the data abstraction and provenance of the data here....</p>
+        <h4>Provenance</h4>
+        <ul>
+          <li>Helping esthetically the frontend design</li>
+          <li>Assisted with Viz Design</li>
+        </ul>
+
+        <h4>Abtraction</h4>
+        <ul>
+          <li>Deriving averages and sums of ratings per platform or genre.</li>
+          <li>Get numerical attributes (number of ratings, averages, runtimes).</li>
+          <li>Goal: discover trends, explore information about chosen movies, compare selection criteria, find outliers.</li>
+        </ul>
+      </div>
+      <h3>Task Abstraction</h3>
+      <div>
+        <ul>
+          <li>Juxtaposing the graphs to analyse specific trends (for example choosing a genre with a platform on the heatmap selects that information in the line graph).</li>
+          <li>Selecting movies to be compared to compare them.</li>
+        </ul>
       </div>
       <h3>Source Code</h3>
       <div>
         <h3>GitHub Repository</h3>
         <ul>
-          <li><h4>https://github.com/ockedman/Plotted-Tomatoes</h4></li>
+          <li><h4>https://github.com/ockedman/plottedtomatoes.github.io</h4></li>
         </ul>
       </div>
       <h3>Source Data</h3>
       <div>
-      <p>....Put the source of the data here....</p>
+        <ul>
+          <li>TMDB: API calls</li>
+          <li>Rotten Tomatoes: https://www.kaggle.com/datasets/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset</li>
+          <li>IMDB: https://www.kaggle.com/datasets/harshitshankhdhar/imdb-dataset-of-top-1000-movies-and-tv-shows</li>
+          <li>Letterboxd: Parser coded by Daniel</li>
+        </ul>
       </div>
     </>
   );

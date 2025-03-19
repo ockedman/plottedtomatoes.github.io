@@ -116,7 +116,6 @@ public class MovieDTO {
     public void setLetterboxdScore(Map<String,Object> letterboxdScore) {
         this.letterboxdScore = letterboxdScore;
     }
-
     public void setTmdbScore(Map<String,Object> tmdbscore) {
         this.tmdbScore = tmdbscore;
     }
