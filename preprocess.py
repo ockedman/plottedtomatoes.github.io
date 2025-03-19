@@ -48,7 +48,7 @@ def preprocess():
             str(movie_data['directors']).split(","),
             str(movie_data['studios']).split(","),
             year,
-            movie_data['releaseDateTheaters'],
+            str(movie_data['startYear']),
             int(movie_data["budget"]),
             int(movie_data["revenue"]),
             str(movie_data['genres']).split(","),
@@ -66,7 +66,6 @@ def preprocess():
         # add Rotten Tomatoes scores
         movie['rottenTomatoesScore'] = {
             "averageScore": float(movie_data['audienceScore']) / 10, # adjust from 0 - 100 to 0 - 10
-            "tomatoMeter": float(movie_data['tomatoMeter']) / 10,
             "numberVotes": int(movie_data['rottenTomatoesNumVotes'])
         }
         
