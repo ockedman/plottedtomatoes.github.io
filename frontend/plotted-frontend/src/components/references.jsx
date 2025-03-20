@@ -121,10 +121,10 @@ const referncesPage = () => {
       <h3>Source Data</h3>
       <div>
         <ul>
-          <li>TMDB: API calls</li>
-          <li>Rotten Tomatoes: https://www.kaggle.com/datasets/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset</li>
-          <li>IMDB: https://www.kaggle.com/datasets/harshitshankhdhar/imdb-dataset-of-top-1000-movies-and-tv-shows</li>
-          <li>Letterboxd: Parser coded by Daniel</li>
+          <li>TMDB: TMDb API calls (https://developer.themoviedb.org/docs/getting-started)</li>
+          <li>Rotten Tomatoes: Rotten Tomatoes Dataset on Kaggle (https://www.kaggle.com/datasets/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset) and Rotten Tomatoes web scraping (https://www.rottentomatoes.com/)</li>
+          <li>IMDB: IMDb Non-commercial Datasets (https://developer.imdb.com/non-commercial-datasets/)</li>
+          <li>Letterboxd: Letterboxd (https://letterboxd.com/) web scraper coded by Daniel (see `csv_generator.ipynb`)</li>
         </ul>
       </div>
     </>
