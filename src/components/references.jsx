@@ -24,6 +24,7 @@ const referncesPage = () => {
               <li>YouTube. (n.d.). How to Use Vite Instead of Create React App (CRA) for React Projects [Video]. YouTube. https://www.youtube.com/watch?v=7pXkD8RXat0</li>
               <li>MDN Web Docs. (n.d.). MDN Web Docs - Resources for Developers, by Developers. Retrieved from https://developer.mozilla.org/en-US/</li>
               <li>GeeksforGeeks. (n.d.). GeeksforGeeks - A Computer Science Portal for Geeks. Retrieved from https://www.geeksforgeeks.org/</li>
+              <li>Behance. (n.d.). Salesforce CRM SaaS UX UI Design. Retrieved from https://www.behance.net/gallery/190475019/Salesforce-CRM-SaaS-UX-UI-Design</li>
             </ul>
           </div>
           <div style={{
@@ -31,9 +32,9 @@ const referncesPage = () => {
           }}>
             <h4>Backend</h4>
             <ul>
-              <li>Backend Developping (n.d.) https://roadmap.sh/backend</li>
-              <li>SpringBoot JPA (n.d.) https://spring.io/guides/gs/accessing-data-jpa</li>
-              <li>JPA Repositories (n.d.) https://www.baeldung.com/the-persistence-layer-with-spring-and-jpa</li>
+              <li>Backend Developping (n.d.) Retrieved from https://roadmap.sh/backend</li>
+              <li>SpringBoot JPA (n.d.) Retrieved from https://spring.io/guides/gs/accessing-data-jpa</li>
+              <li>JPA Repositories (n.d.) Retrieved from https://www.baeldung.com/the-persistence-layer-with-spring-and-jpa</li>
             </ul>
           </div>
           <div style={{
